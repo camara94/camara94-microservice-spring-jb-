@@ -1,4 +1,4 @@
-package com.stardevcgroup.proxy;
+package com.stardevcgroup.email;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
