@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.stardevcgroup.iset.models.Bac;
@@ -67,11 +68,17 @@ public class EtudiantController {
 	       return  etudiants;
 	    }
 	    
+	    
+	    //Récupérer la liste des etudiants
+	    @RequestMapping(value = "/etudiant", method = RequestMethod.GET)
+	    public Etudiant getEtudiantByUsernameAndPasswords( @RequestParam String username, @RequestParam String password ) {
+	       Etudiant etudiant = etudiantRepository.findByUsernameAndPassword(username, password);
+	       return  etudiant;
+	    }
+	    
 	  //ajouter un etudiant
 	  // @RequestMapping( value = "/etudiants", method = RequestMethod.POST, headers = "Accept=application/json")
 	    @RequestMapping(value = "/etudiants", method = RequestMethod.POST, consumes="application/json")
-	    //@Transactional
-	    //@PostMapping(value =  "/etudiants")
 	    public ResponseEntity<Etudiant> ajouterEtudiant(@Valid @RequestBody Etudiant etudiant) {
 	    	
 	    	Etudiant etudiant1 =  etudiantRepository.save(etudiant);

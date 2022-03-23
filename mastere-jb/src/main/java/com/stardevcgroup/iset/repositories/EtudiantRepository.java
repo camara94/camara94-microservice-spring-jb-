@@ -18,7 +18,9 @@ public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
 
 	public Etudiant getEtudiantById(Long id);
 	
-	public Etudiant findByUsername( String USERNAME );
+	public Etudiant findByUsername( String username );
+	
+	public Etudiant findByUsernameAndPassword( String username, String password );
 	
 	@Modifying
 	 @Query("DELETE Diplome d WHERE d.id = ?1") 
