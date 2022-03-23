@@ -76,8 +76,22 @@ public class EtudiantController {
 	       return  etudiant;
 	    }
 	    
-	  //ajouter un etudiant
-	  // @RequestMapping( value = "/etudiants", method = RequestMethod.POST, headers = "Accept=application/json")
+	    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+	    public ResponseEntity<Etudiant> enregistrer(@Valid @RequestBody Etudiant etudiant) {
+	    	
+	    	Etudiant etudiant1 =  etudiantRepository.save(etudiant);
+	        if (etudiant1 == null)
+	            return ResponseEntity.noContent().build();
+
+	        URI location = ServletUriComponentsBuilder
+	                .fromCurrentRequest()
+	                .path("/{id}")
+	                .buildAndExpand(etudiant1.getId())
+	                .toUri();
+	        return ResponseEntity.created(location).body(etudiant1);
+	    }
+	    
+	 
 	    @RequestMapping(value = "/etudiants", method = RequestMethod.POST, consumes="application/json")
 	    public ResponseEntity<Etudiant> ajouterEtudiant(@Valid @RequestBody Etudiant etudiant) {
 	    	
