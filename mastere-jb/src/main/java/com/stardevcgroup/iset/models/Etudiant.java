@@ -2,6 +2,7 @@ package com.stardevcgroup.iset.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -25,6 +26,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.NaturalIdCache;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -36,7 +39,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
 @Entity
-public class Etudiant implements Serializable {
+public class Etudiant implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,6 +53,19 @@ public class Etudiant implements Serializable {
 	private String cin;
 	private boolean validerDossier = false; 
 	private double scoreOral = 0d;
+	String role;
+	public String getRole() {
+		return role;
+	}
+
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+
 	@OneToOne
 	private Bac bac;
 	
@@ -363,6 +379,53 @@ public class Etudiant implements Serializable {
 
 	public void setNotifications(List<Notification> notifications) {
 		this.notifications = notifications;
+	}
+
+
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	public Object orElseThrow(Object object) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

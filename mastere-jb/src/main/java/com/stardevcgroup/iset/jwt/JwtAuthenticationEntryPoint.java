@@ -1,5 +1,6 @@
 package com.stardevcgroup.iset.jwt;
 
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -19,6 +20,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException {
 
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Vous n'êtes pas autorisé !!! ");
 	}
 }
