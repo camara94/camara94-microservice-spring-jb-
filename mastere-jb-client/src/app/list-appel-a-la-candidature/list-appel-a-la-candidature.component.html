@@ -1,0 +1,47 @@
+<div class="container padding-y-20" *ngIf="chargement">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate"></mat-spinner><h4>En chargement . . . Veuillez patienter, s'il vous plaît</h4>
+    </div>
+  </div>
+</div>
+<section class="padding-y-30 bg-light" *ngIf="!chargement">
+  <div class="container">
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th> Etablissement </th>
+              <th> Année </th>
+              <th> Mastère </th>
+              <th> Action </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appelALaCandidature of appelALaCandidatures; let index = index">
+              <td> {{index + 1}} </td>
+              <td> {{ getEtablissementById(appelALaCandidature.etablissementId).nom }} </td>
+              <td> {{ appelALaCandidature.anneeUniversitaire }} </td>
+              <td>
+                {{ getMastereById(appelALaCandidature.mastereId).libele }}
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm"
+                        *ngIf="getMastereById(appelALaCandidature.mastereId).disponible ==0"
+                        (click)="lancerAppel( appelALaCandidature.mastereId )"
+                        > Lancer </button>
+                <button class="btn btn-danger btn-sm"
+                        *ngIf="getMastereById( appelALaCandidature.mastereId ).disponible == 1"
+                        (click)="lancerAppel( appelALaCandidature.mastereId )" > Arrêter </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary btn-sm offset-md-5" routerLink="/appel-a-la-candidature" > Appel à la candidature </button>
+</section>
+

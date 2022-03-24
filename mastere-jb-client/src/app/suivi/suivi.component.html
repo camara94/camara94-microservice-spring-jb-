@@ -1,0 +1,252 @@
+<section class="py-4">
+  <div class="container">
+    <div class="row">
+     <div class="col-md-8 my-2">
+      <h4 class="mb-4">
+        Etat d'évolution de vos dossiers
+      </h4>
+      <div class="progress mb-4">
+        <span *ngIf="etudiant !== null && etudiant.bac === null" style="margin: 0px 0px 0px 5%;">BAC 0/1 </span>
+        <div class="progress-bar" role="progressbar"
+          [ngStyle]="{'width': etudiant.bac !== null ? '100%' : '0%', 'color':etudiant.bac !== null ? 'white' : 'red' }"
+               aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+               <span [ngStyle]="{'display':etudiant.bac===null?'none':'inline'}"> BAC 1/1</span></div>
+      </div>
+
+      <div class="progress mb-4">
+        <span *ngIf="etudiant.diplomes.length===0" style="margin: 0px 0px 0px 5%;">Diplômes 0/2 </span>
+        <div class="progress-bar bg-success"
+             role="progressbar"
+             [ngStyle]="{'width': etudiant.diplomes.length === 3 ? '100%': diplomepercent +'%', 'color':etudiant.diplomes.length === 3 ? 'white' : 'white' }"
+             aria-valuenow="25"
+             aria-valuemin="0"
+             aria-valuemax="100">
+                <span [ngStyle]="{'display':etudiant.diplomes.length===0?'none':'inline'}">Diplômes - {{ etudiant.diplomes.length + '/3' }}</span>
+             </div>
+      </div>
+      <div class="progress mb-4">
+        <span *ngIf="etudiant.formations.length===0" style="margin: 0px 0px 0px 5%;">Formation 0/3 </span>
+        <div class="progress-bar bg-info"
+          role="progressbar"
+          [ngStyle]="{'width': etudiant.formations.length === 3 ? '100%': formationpercent +'%', 'color':etudiant.formations.length === 3 ? 'white' : 'white' }"
+          aria-valuenow="50"
+          aria-valuemin="0"
+          aria-valuemax="100">
+          <span [ngStyle]="{'display':etudiant.formations.length===0?'none':'inline'}"> Formation {{etudiant.formations.length + '/3'}}</span>
+        </div>
+      </div>
+      <div class="progress mb-4">
+        <span *ngIf="etudiant.distinctions.length===0" style="margin: 0px 0px 0px 5%;"> 0/3 </span>
+        <div class="progress-bar bg-warning"
+             role="progressbar"
+             [ngStyle]="{'width': etudiant.distinctions.length === 3 ? '100%': distinctionpercent +'%' }"
+             aria-valuenow="10"
+             aria-valuemin="20" aria-valuemax="100">
+             <span [ngStyle]="{'display':etudiant.distinctions.length===0?'none':'inline'}">Distinction {{ etudiant.distinctions.length + '/3'}}</span>
+            </div>
+      </div>
+      <div class="progress mb-4">
+        <span *ngIf="etudiant.certificats.length===0" style="margin: 0px 0px 0px 5%;">Certificats 0/3 </span>
+        <div class="progress-bar bg-danger"
+             role="progressbar"
+             [ngStyle]="{'width': etudiant.certificats.length === 3 ? '100%':certifpercent+'%', 'color':etudiant.certificats.length === 3 ? 'white' : 'white' }"
+             aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+             <span [ngStyle]="{'display':etudiant.certificats.length===0?'none':'inline'}">Certificat {{etudiant.certificats.length + '/3'}} </span>
+            </div>
+      </div>
+      <div class="progress mb-4">
+        <span *ngIf="etudiant.stageExperiences.length===0" style="margin: 0px 0px 0px 5%;"> Stages ou expéeriences 0/3 </span>
+        <div class="progress-bar bg-primary"
+        [ngStyle]="{'width': etudiant.stageExperiences.length === 3 ? '100%':stagepercent+'%', 'color':etudiant.stageExperiences.length === 3 ? 'white' : 'white' }"
+        role="progressbar"
+        aria-valuenow="25"
+        aria-valuemin="0"
+        aria-valuemax="100">
+        <span
+            [ngStyle]="{'display':etudiant.stageExperiences.length===0?'none':'inline'}"
+            >Stage ou expéerience -{{ etudiant.stageExperiences.length + '/3' }}</span>
+      </div>
+      </div>
+     </div>
+     <div class="col-md-4 my-2">
+      <h4 class="mb-4">
+        Statistique
+      </h4>
+
+      <div class="table-responsive my-4">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col" class="font-weight-semiBold">Dossier</th>
+              <th scope="col">Min</th>
+              <th scope="col">Max</th>
+              <th scope="col">Déposer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="font-weight-semiBold">BAC</th>
+              <td>1</td>
+              <td>1</td>
+              <td>
+               <span *ngIf="etudiant.bac != null">1</span>
+               <span *ngIf="etudiant.bac == null">0</span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-semiBold">Diplôme</th>
+              <td>1</td>
+              <td>2</td>
+              <td>
+                <span> {{etudiant.diplomes.length}} </span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-semiBold">Formation</th>
+              <td>0</td>
+              <td>3</td>
+              <td> {{ etudiant.formations.length }} </td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-semiBold">Distinction</th>
+              <td>0</td>
+              <td>3</td>
+              <td>
+                <span> {{etudiant.distinctions.length}} </span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-semiBold">Certificat</th>
+              <td>0</td>
+              <td>3</td>
+              <td>
+                <span> {{etudiant.certificats.length}} </span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-semiBold">Stage ou Expérience</th>
+              <td>0</td>
+              <td>3</td>
+              <td>
+                <span> {{etudiant.stageExperiences.length}} </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     </div>
+    </div> <!-- END row-->
+
+    <div class="row" *ngIf="emailDossierValide !== ''" >
+      <div class="col-md-12">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Votre dossier à été validé avec succès!</strong>, vous receverez une notification pour l'entretien
+          oral lorsque vous serez retenu à <strong> {{emailDossierValide}} </strong>
+        </div>
+      </div>
+    </div><!-- END row-->
+
+    <div class="row" *ngIf="etudiant.cin === null || etudiant.cin === ''" >
+      <div class="col-md-12">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Le CIN est obligatoire</strong>, veuillez completer votre app-profile
+          <a routerLink="/update-etudiant" style="text-decoration: underline;"><strong>Mettre à jour votre profile</strong></a>
+        </div>
+      </div>
+    </div><!-- END row-->
+
+    <div class="row" *ngIf="annuler === true" >
+      <div class="col-md-12">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Le dépôt de votre dossier à été annuler avec succès!</strong>
+        </div>
+      </div>
+    </div><!-- END row-->
+
+    <div class="row">
+      <div class="col-md-12 my-2">
+        <div class="alert alert-success" role="alert">
+          NB:<br>
+          <ul>
+            <li>
+              Lorsque le <strong>Min</strong> d'un dossier est égale à zéro, cela signifie que ce dossier est optionnel à votre candidature
+            </li>
+            <li>
+              Mais lorsque le <strong>Min</strong> d'un dossier est supérieur à zéro, cela signifie que ce dossier est obligatoire à votre candidature, et que
+              le nombre dossier dépossé doit être supérieur ou égal à <strong>Min</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- END row-->
+
+    <div class="row" *ngIf="etudiant.validerDossier === false" >
+      <div class="col-md-12 my-2">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#validerDossierModal">
+          Valider votre dossier </button>
+
+      </div>
+    </div><!-- END row-->
+
+    <div class="row" *ngIf="etudiant.validerDossier === true">
+      <div class="col-md-12 my-2">
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#validerDossierModal">
+          annuler votre dossier </button>
+      </div>
+    </div><!-- END row-->
+
+  </div> <!-- END container-->
+</section> <!-- END section-->
+
+
+<div class="modal" id="validerDossierModal">
+  <div class="modal-dialog" [ngStyle]="{'display':etudiant.validerDossier == false ? 'block':'none'}">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-info text-white">
+        <h4 class="modal-title">Validation du dossier</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       Etes-vous sûr de bien vouloir valider votre dossier pour la candidature<br>
+       <button class="btn btn-success btn-sm" (click)="validerDossier(etudiant.id)" data-dismiss="modal">Oui</button>&nbsp;&nbsp;
+       <button class="btn btn-danger btn-sm">Non</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-dialog" [ngStyle]="{'display':etudiant.validerDossier == true ? 'block':'none'}">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header bg-info text-white">
+          <h4 class="modal-title">Validation du dossier</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+         Etes-vous sûr de bien vouloir annuler votre dossier pour la candidature<br>
+         <button class="btn btn-success btn-sm" (click)="annulerDossier(etudiant.id)" data-dismiss="modal">Oui</button>&nbsp;&nbsp;
+         <button class="btn btn-danger btn-sm">Non</button>
+       </div>
+
+  </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,106 @@
+<div class="container padding-y-20" *ngIf="etudiant==null">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-12 mt-5">
+      <div class="d-md-flex justify-content-between align-items-center bg-white shadow-v1 rounded mb-4 py-4 px-5 hover:transformLeft">
+        <table class="table table-bordered" *ngIf="etudiant.diplomes != null" >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>titre</th>
+              <th>Année d'obtention</th>
+              <th>Nombre d'année</th>
+              <th>Justificatif</th>
+              <th> Action </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let diplome of etudiant.diplomes; let i = index">
+              <td> {{ diplome.id }} </td>
+              <td> {{ diplome.titre }} </td>
+              <td> {{ diplome.annee }} </td>
+              <td> {{ diplome.anneeUniversitaires.length }} </td>
+              <td class="text-center">
+                <button class="btn btn-info btn-sm" (click)="openDialog(diplome.file)" ><i class="far fa-eye fa-sm"></i></button>
+              </td>
+              <td style="width: 160px;">
+                <button class="btn btn-info btn-sm" (click)="getDiplomeModalPrint(diplome.id)"> <i class="fa fa-book fa-sm"></i>  </button>
+                &nbsp;<button class="btn btn-primary btn-sm" *ngIf="diplome != null"><a  [routerLink]="['/update-diplome', diplome.id]" ><i class="ti-pencil"></i></a></button>
+                &nbsp;<button class="btn btn-danger btn-sm" (click)="getDiplomeModal(diplome.id)"  *ngIf="diplome != null" data-toggle="modal" data-target="#supprimerDiplomeModal"><a ><i class="ti-cut"></i></a></button>
+              </td>
+            </tr>
+            <tr class="text-center">
+              <td colspan="6">
+                <button class="btn btn-success btn-sm"  ><a routerLink="/dossier">Ajouter le Diplôme</a></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="diplomep" >
+    <h4 class="col-lg-8 mt-1"> {{diplomep.titre}} </h4>
+    <div class="col-lg-12 mt-1">
+      <div class="d-md-flex justify-content-between align-items-center bg-white shadow-v1 rounded mb-4 py-4 px-5 hover:transformLeft">
+        <table class="table table-bordered" >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>titre</th>
+              <th>Moyeene</th>
+              <th>Année</th>
+              <th>Justificatif</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let note of diplomep.anneeUniversitaires; let i = index">
+              <td> {{ note.id }} </td>
+              <td> {{ note.titre }} </td>
+              <td> {{ note.moyenne }} </td>
+              <td> {{ note.annee }} </td>
+              <td class="text-center">
+                <button class="btn btn-info btn-sm" (click)="openDialog(note.file)" ><i class="far fa-eye fa-sm"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal  de suppression d'une Diplôme-->
+<div class="modal fade m-0" id="supprimerDiplomeModal"  role="dialog" aria-labelledby="supprimerDiplomeModal" *ngIf="modalDiplome != null" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-0">
+      <div class="modal-body m-0">
+          <div class="alert alert-danger m-1" role="alert" >
+                 Etes-vous sûr de bien vouloir supprimer <br>
+                le Diplôme <strong>{{ modalDiplome.titre }}</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container padding-y-20" *ngIf="scrool">
+          <div class="row">
+            <div class="mx-auto">
+              <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button data-dismiss="modal" (click)="deleteDiplome(modalDiplome.id, etudiant.id)" class="btn btn-success btn-sm">OK</button>&nbsp;
+          <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

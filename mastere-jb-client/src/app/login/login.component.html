@@ -1,0 +1,67 @@
+<section class="padding-y-10 bg-light">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-6 mx-auto">
+        <div class="card shadow-v2">
+         <div class="card-header border-bottom">
+          <h4 class="mt-1">
+            Connectez-vous à votre compte  <!-- <app-confirm [data]="data" ></app-confirm> -->
+          </h4>
+         </div>
+          <div class="card-body">
+            <div class="row mt-0">
+              <div class="col">
+                <button class="btn btn-block btn-facebook">
+                 <i class="ti-facebook mr-1"></i>
+                 <span>Facebook Sign in</span>
+               </button>
+              </div>
+              <div class="col">
+                <button class="btn btn-block btn-google-plus">
+                 <i class="ti-google mr-1"></i>
+                 <span>Google Sign in</span>
+               </button>
+              </div>
+            </div>
+            <p class="text-center">
+              OR
+            </p>
+            <!--
+            <p> {{ user | json }} </p> -->
+            <form action="#" method="POST" class="px-lg-4">
+              <div class="input-group input-group--focus mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-email"></span>
+                </div>
+                <input type="text" class="form-control border-left-0 pl-0" placeholder="Username" name="username" >
+              </div>
+              <div class="input-group input-group--focus mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-lock"></span>
+                </div>
+                <input type="password" name="password"  class="form-control border-left-0 pl-0" placeholder="Password">
+              </div>
+              <div class="d-md-flex justify-content-between">
+                <label class="ec-checkbox check-sm clearfix">
+                  <input type="checkbox" name="checkbox">
+                  <span class="ec-checkbox__control"></span>
+                  <span class="ec-checkbox__lebel">Se rappeler de moi</span>
+                </label>
+                <a  class="text-primary d-block">mot de passe oublié?</a>
+              </div>
+              <button  class="btn btn-success">
+                Se connecter
+              </button>
+              <p class="text-center">
+                Vous n'avez pas de compte? <a class="text-primary">S'incrire</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>

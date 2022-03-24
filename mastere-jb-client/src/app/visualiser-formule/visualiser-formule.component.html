@@ -1,0 +1,124 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h2> Le détail de la formule de calcule </h2><br>
+      <app-mathjax [content]='mathMl.mathml'></app-mathjax>
+      <span> {{ scoreDossier }}</span> <br><br> = <span style="font-size: .9em;"> {{ scoreDossierVisualer }} </span> <br><br>
+      <span style="font-size: .79em; border: 1px solid rebeccapurple; padding: 10px;"> {{ bonificationParcours }} </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-5 mt-5">
+      <h4>NB:</h4>
+      <ul>
+        <li><strong>CB:</strong>Le Coeficient de la moyenne du bac</li>
+        <li><strong>MBac: </strong>La moyenne du bac</li>
+        <li><strong>CoefMAU: </strong>Coeficient de la moyenne de l'année universitaire</li>
+        <li><strong>MAU: </strong>La moyenne de l'année universitaire</li>
+        <li><strong>bonificationParcours: </strong>La bonification du parcours universitaire</li>
+        <li><strong>max_a: </strong>Le nombre max l'année universitaire</li>
+        <li><strong>mentionAU: </strong>Bonus de la mention pour chaque année universitaire</li>
+        <li><strong>max_f: </strong>Le nombre max de formation considérée</li>
+        <li><strong>bf: </strong>Le bonus pour une formation</li>
+        <li><strong>max_c: </strong>Le nombre max de certification considérée</li>
+        <li><strong>bc: </strong>Le bonus pour une certification</li>
+        <li><strong>max_d: </strong>Le nombre max de distinction considérée</li>
+        <li><strong>bd: </strong>Le bonus pour une distinction</li>
+        <li><strong>max_se: </strong>Le nombre max de stage ou expérience considérée</li>
+        <li><strong>bse: </strong>Le bonus pour un stage ou une expérience</li>
+        <li><strong>max_sp: </strong>Le nombre max de réussite en session principale considérée</li>
+        <li><strong>bse: </strong>Le bonus pour une session principale</li>
+        <li><strong>max_r: </strong>Le nombre max de redoublement considérée</li>
+        <li><strong>bse: </strong>Le malus pour un rédoublement</li>
+      </ul>
+    </div>
+    <div class="col-12 col-md-5 mt-5">
+      <div class="table-responsive">
+        <table >
+          <thead>
+            <tr>
+             <!--<th>Active</th>-->
+              <th>Critère</th>
+              <th>Coefficient</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td> Mention du BAC </td>
+              <td> {{data.mastere.champFormule.mentionBac}} </td>
+            <tr>
+              <td> Session Principale </td>
+              <td> {{data.mastere.champFormule.coefficientSessionPrincipale}} </td>
+            </tr>
+
+            <tr>
+              <td> malus Rédoublement </td>
+              <td> {{ data.mastere.champFormule.coefficientRedouble }}
+              </td>
+            </tr>
+            <tr>
+              <td> Mention Abien </td>
+              <td> {{data.mastere.champFormule.coefficientMentionABien}}
+              </td>
+            </tr>
+            <tr>
+              <td> Mention Bien </td>
+              <td> {{ data.mastere.champFormule.coefficientMentionBien }}
+              </td>
+            </tr>
+            <tr>
+              <td> Mention Tbien </td>
+              <td> {{ data.mastere.champFormule.coefficientMentionTBien }}
+              </td>
+            </tr>
+            <tr>
+              <td> AnneeSup </td>
+              <td> {{ data.mastere.champFormule.coefficientAnneeSupplementaire }}
+              </td>
+            </tr>
+            <tr>
+              <td> Bonus Formation </td>
+              <td> {{ data.mastere.champFormule.coefficientFormation }} </td>
+            </tr>
+            <tr>
+              <td> Bonus Stage </td>
+              <td> {{ data.mastere.champFormule.coefficientStage }} </td>
+            </tr>
+            <tr>
+              <td>Bonus Expérience </td>
+              <td> {{ data.mastere.champFormule.coefficientExperience }} </td>
+            </tr>
+            <tr>
+              <td> Bonus Certificat </td>
+              <td> {{ data.mastere.champFormule.coefficientCertificat }} </td>
+            </tr>
+            <tr>
+              <td> Coefficient Distinction </td>
+              <td> {{ data.mastere.champFormule.coefficientDistinction }}
+              </td>
+            </tr>
+            <tr>
+              <td> Nombre Limite De Certificat </td>
+              <td> {{ data.mastere.champFormule.nombreLimiteDeCertificat }} </td>
+            </tr>
+            <tr>
+              <td> Nombre Limite De Formation </td>
+              <td> {{data.mastere.champFormule.nombreLimiteDeFormation}} </td>
+            </tr>
+            <tr>
+              <td> Nombre Limite De Stage </td>
+              <td> {{ data.mastere.champFormule.nombreLimiteDeStage }} </td>
+            </tr>
+            <tr>
+              <td> Nombre Limite D'Experience </td>
+              <td> {{ data.mastere.champFormule.nombreLimiteDExperience }} </td>
+            </tr>
+
+          </tbody>
+        </table>
+       </div>
+    </div>
+  </div>
+</div>

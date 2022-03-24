@@ -1,0 +1,125 @@
+<form class="bg-light" novalidate [formGroup]="formationForm" #fform="ngForm" (ngSubmit)="onSubmit()" >
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-12 mx-auto">
+        <div class="card shadow-v2 mt-2">
+         <div class="card-header border-bottom">
+          <h4 class="mt-2">
+            Ajouter une Formation {{formationForm.value | json}} {{formationForm.status}}
+          </h4>
+         </div>
+          <div class="card-body pt-1 pb-2">
+            <!--
+            <div class="row"></div>
+              <div class="input-group input-group--focus mb-2">
+                <input type="text" name="titre" class="form-control border-right-0 p-0 pl-2" placeholder="Le titre du diplôme"
+                formControlName="titre" >
+              </div>
+              <div class="error" *ngIf="formationForm.get('titre') && formErrors.titre">{{formErrors.titre}}</div> -->
+              <div class="row">
+                <label class="col-md-4 pt-3">Le titre de la formation</label>
+                <div class="col-md-8">
+                  <mat-form-field class="example-full-width">
+                    <mat-label *ngIf="!formationForm.get('titre') && !formErrors.titre">Le nom de la classe</mat-label>
+                    <mat-label class="error" *ngIf="formationForm.get('titre') && formErrors.titre">{{formErrors.titre}}</mat-label>
+                    <input matInput placeholder="titre" formControlName="titre">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="col-md-4 pt-3">La plateforme ou l'école</label>
+                <div class="col-md-8">
+                  <mat-form-field class="example-full-width">
+                    <mat-label *ngIf="!formationForm.get('plateforme') && !formErrors.plateforme">La plateforme ou l'école</mat-label>
+                    <mat-label class="error" *ngIf="formationForm.get('plateforme') && formErrors.plateforme">{{formErrors.plateforme}}</mat-label>
+                    <input matInput placeholder="plateforme" formControlName="plateforme">
+                  </mat-form-field>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <label class="col-md-4 pt-3">La durée de la formation</label>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label *ngIf="!formationForm.get('duree') && !formErrors.duree">Le nom de la classe</mat-label>
+                    <mat-label class="error" *ngIf="formationForm.get('duree') && formErrors.duree">{{formErrors.duree}}</mat-label>
+                    <input matInput placeholder="Durée en" formControlName="duree">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                  <mat-select [(value)]="typeDurees[0]" placeholder="type durée" formControlName="typeDuree">
+                    <mat-option *ngFor="let td of typeDurees" [value]="td" > {{ td }} </mat-option>
+
+                  </mat-select>
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="col-md-4 pt-3">La date de debut de la formation</label>
+                <div class="col-md-8">
+
+                  <div class="container">
+                    <div class="row">
+                      <mat-form-field>
+                        <mat-label *ngIf="!formationForm.get('date') && !formErrors.dateDebut">La date de debut de la formation</mat-label>
+                        <mat-label class="error" *ngIf="formationForm.get('date') && formErrors.dateDebut">{{formErrors.dateDebut}}</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="dateDebut"
+                        placeholder="Select a date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                  </div>
+                </div>
+
+                </div>
+
+              </div>
+              <div class="row">
+                <label class="col-md-4 pt-3">La date de fin de la formation</label>
+                <div class="col-md-8">
+
+                  <div class="container">
+                    <div class="row">
+                      <mat-form-field>
+                        <mat-label >La date de fin de la formation</mat-label>
+                        <input matInput [matDatepicker]="pickerOther" formControlName="dateFin"
+                        placeholder="Select a date">
+                        <mat-datepicker-toggle matSuffix [for]="pickerOther"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerOther></mat-datepicker>
+                      </mat-form-field>
+                  </div>
+                </div>
+
+                </div>
+
+              </div>
+
+              <div class="row">
+                <label class="col-md-5 pt-3">Télécharger le fichier</label>
+                <div class="col-md-7">
+                  <!--<mat-form-field appearance="legacy">
+                    <ngx-mat-file-input formControlName="url" placeholder="le fichier" ></ngx-mat-file-input>
+                    <mat-icon matSuffix>folder</mat-icon>
+                  </mat-form-field> -->
+                  <input type="file" name="file" (change)="fileChanged($event)" />
+                </div>
+              </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div> <!-- END row-->
+    <div class="row">
+      <button [disabled]="formationForm.invalid"  (click)="ajouter()"  class="col-lg-4 btn btn-primary mt-2 mb-4 offset-md-4" >Ajouter</button>
+    </div>
+  </div> <!-- END container-->
+
+
+</form>
+

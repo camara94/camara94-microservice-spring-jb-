@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row padding-y-20">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Id</th>
+              <th>Libellé</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let domaine of domaines, let i = index ">
+              <td> {{ i }} </td>
+              <td> {{ domaine.id }} </td>
+              <td> {{ domaine.libelle }} </td>
+              <td>
+                <button class="btn btn-info btn-sm" [routerLink]="['/update-domaine', domaine.id]" ><i class="ti-pencil"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

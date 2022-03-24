@@ -1,0 +1,46 @@
+<form class="bg-light" novalidate [formGroup]="releveForm" #fform="ngForm" (ngSubmit)="onSubmit()" >
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-12 mx-auto">
+        <div class="card shadow-v2 mt-2">
+         <div class="card-header border-bottom pt-1">
+          <h4 class="mt-2">
+            Ajouter un Rélévé de Note {{releveForm.value | json}} {{releveForm.status}}
+          </h4>
+         </div>
+          <div class="card-body pt-1">
+            <div class="row"></div>
+              <div class="input-group input-group--focus mb-2">
+                <input type="text" name="titre" class="form-control border-right-0 p-0 pl-2" placeholder="Le titre du diplôme"
+                formControlName="titre" >
+              </div>
+              <div class="error" *ngIf="releveForm.get('titre') && formErrors.titre">{{formErrors.titre}}</div>
+              <div class="input-group input-group--focus mb-2">
+                <input type="text" class="form-control p-0 pl-2" placeholder="Etablissement" formControlName="universite">
+            </div>
+            <div class="error" *ngIf="releveForm.get('universite') && formErrors.universite">{{formErrors.universite}}</div>
+
+            <div class="input-group input-group--focus mb-2">
+              <input type="text" class="form-control p-0 pl-2" placeholder="Moyenne" formControlName="moyenne" >
+            </div>
+            <div class="error" *ngIf="releveForm.get('moyenne') && formErrors.moyenne">{{formErrors.moyenne}}</div>
+            <div class="input-group input-group--focus mb-2">
+              <input type="text" class="form-control p-0 pl-2" placeholder="annee" formControlName="annee" >
+            </div>
+            <div class="error" *ngIf="releveForm.get('annee') && formErrors.annee">{{formErrors.annee}}</div>
+            <div class="input-group input-group--focus mb-2">
+              <input type="file" class="form-control p-0 pl-2" placeholder="annee" formControlName="url" >
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+
+  <div>
+    <button [disabled]="releveForm.invalid"  (click)="ajouter()"  class="col-lg-4 btn btn-primary mt-2  mb-3 offset-md-4">Ajouter</button>
+  </div>
+</form>
+

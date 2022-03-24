@@ -1,0 +1,162 @@
+
+
+<div class="container" *ngIf="scrool && diplomeCourant == null">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+    </div>
+  </div>
+</div>
+
+<form class="bg-light" novalidate [formGroup]="diplomeForm" #fform="ngForm" (ngSubmit)="onSubmit()"
+*ngIf="!scrool&& diplomeCourant != null" >
+  <div  [ngClass]="{'container-fluid': nombreAnnee>0, 'container':nombreAnnee==0}">
+    <div class="row">
+      <div [ngClass]="{'col-md-8': nombreAnnee<=3, 'col-md-6':nombreAnnee>=4, 'col-md-12':nombreAnnee==0}">
+        <div class="card shadow-v2 mt-2">
+         <div class="card-header border-bottom pb-0 pt-0">
+          <h4 class="mt-2">
+            Mettre à jour le Diplôme <!--{{diplomeForm.value | json}} {{diplomeForm.status}}-->
+          </h4>
+         </div>
+          <div class="card-body pb-2 pt-1">
+
+            <div class="row"></div>
+
+            <div class="row">
+              <label class="col-md-4 pt-3">Le titre du dernier diplôme</label>
+              <div class="col-md-8">
+                <mat-form-field class="example-full-width">
+                  <mat-label *ngIf="!diplomeForm.get('titre') && !formErrors.titre">Le titre du dernier</mat-label>
+                  <mat-label class="error" *ngIf="diplomeForm.get('titre') && formErrors.titre">{{formErrors.titre}}</mat-label>
+                  <input matInput placeholder="titre" formControlName="titre" [(ngModel)]="diplomeCourant.titre" >
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <label class="col-md-4 pt-3">Selection votre établissement</label>
+              <div class="col-md-8">
+                <mat-form-field *ngIf="!etabExist">
+                  <mat-label>Selectionner une année Etablissement</mat-label>
+                  <mat-select formControlName="etablissement">
+                    <mat-option width="300"   *ngFor="let etablissement of etablissements; let i=index" [(ngModel)]="etablissement.id" >
+                      <i class="fa fa-school"></i> &nbsp;&nbsp;
+                      {{etablissement.nom}}
+                    </mat-option>
+                    <mat-option (click)="activeEtabExist()"  >
+                      <i class="fa fa-school"></i> &nbsp;&nbsp;
+                      <span> Autre </span>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="etabExist">
+                  <input matInput placeholder="Saisir le nom de votre établissement" formControlName="autre">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="error" *ngIf="diplomeForm.get('universite') && formErrors.etablissement">{{formErrors.etablissement}}</div>
+
+            <div class="row">
+              <label class="col-md-4 pt-3">Année d'obtention du dernier diplôme</label>
+              <div class="col-md-8">
+                <mat-form-field class="example-full-width">
+                  <mat-label *ngIf="!diplomeForm.get('annee') && !formErrors.annee">Année d'obtention du dernier diplôme</mat-label>
+                  <mat-label class="error" *ngIf="diplomeForm.get('annee') && formErrors.annee">{{formErrors.annee}}</mat-label>
+                  <input matInput placeholder="Année d'obtention du dernier diplôme" formControlName="annee"
+                  [(ngModel)]="diplomeCourant.annee">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="col-md-5 pt-3">Télécharger le fichier</label>
+              <div class="col-md-7">
+                <input type="file" name="file" (change)="fileChanged($event)" [(ngModel)]="diplomeCourant.file" />
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="col-md-4 pt-3">Le nombre d'année Universitaire</label>
+              <div class="col-md-8">
+                <mat-form-field *ngIf="!etabExist">
+                  <mat-label>Le nombre d'année Universitaire</mat-label>
+                  <mat-select formControlName="nombreAnneeUniversitaire">
+                    <mat-option width="300"   *ngFor="let nombreAnneeUniversitaire of nombreAnneeUniversitaires; let i=index"
+                    [(ngModel)]="nombreAnneeUniversitaire"
+                    (click)="nombreAnneeUniversite(nombreAnneeUniversitaire, diplome1.anneeUniversitaires)"
+                     >
+                      <i class="fa fa-school"></i> &nbsp;&nbsp;
+                      {{nombreAnneeUniversitaire + ' ans'}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+            <!--
+
+        Les releves
+      -->
+    <div [ngClass]="{'col-md-4 ml-0': nombreAnnee<=3, 'col-md-6':nombreAnnee>=4}">
+      <div  class="row">
+        <div
+          [ngClass]="{'col-md-6':nombreAnnee>=4, 'col-md-12': nombreAnnee<=3}"
+          formArrayName="anneeUniversitaires"
+          *ngFor="let item of diplomeForm.get('anneeUniversitaires')['controls']; let i = index;">
+          <div class="card shadow-v2 mt-2" [formGroupName]="i">
+            <div class="card-body pt-2 pb-1">
+              <input  type="hidden" formControlName="id"/>
+              <div class="container minRow">
+                <div class="row">
+                    <input type="text" formControlName="titre"  placeholder="classe (Ex:L{{i+1}})"
+                    [(ngModel)]="diplomeCourant.anneeUniversitaires[i].titre" />
+                </div>
+                <div class="row">
+                    <input type="text" formControlName="moyenne"  placeholder="moyenne"
+                    [(ngModel)]="diplomeCourant.anneeUniversitaires[i].moyenne" />
+                </div>
+                <div class="row">
+                    <input type="text" formControlName="annee"  placeholder="Année universitaire"
+                    [(ngModel)]="diplomeCourant.anneeUniversitaires[i].annee" />
+                </div>
+                <div class="row">
+                  <label class="col-md-4 pt-3">Session</label>
+                  <div class="col-md-8">
+                    <div class="container">
+                      <div class="row">
+                        <mat-form-field>
+                          <mat-select [(value)]="sessions[0]" placeholder="session" formControlName="session">
+                            <mat-option *ngFor="let s of sessions" [value]="s" > {{ s }} </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <input class="col-md-10" type="file" name="file" (change)="fileChanged($event)"
+                     [(ngModel)]="diplomeCourant.anneeUniversitaires[i].file"  />
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+  <div class="container">
+    <div class="row">
+      <button  [disabled]="diplomeForm.invalid"
+              class="col-lg-4 btn btn-primary btn-sm mt-2 mb-3 offset-md-4" >Mettre à jour le dipôme</button>
+    </div>
+  </div>
+</form>

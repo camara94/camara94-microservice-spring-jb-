@@ -1,0 +1,28 @@
+<div class="container padding-y-10">
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Nom</th>
+              <th>Domaine</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mention of mentions; let i = index " >
+              <td> {{ (i+1) }} </td>
+              <td> {{ mention.nom }} </td>
+              <td> {{ mention.domaine.libelle }} </td>
+              <td>
+                <button class="btn btn-info btn-sm" [routerLink]="['/udpate-mention', mention.id]"  ><i class="ti-pencil"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<section class="padding-y-10 bg-light">
+  <div class="container">
+    <div class="row">
+    <div class="card flex-wrap flex-row padding-20 shadow-v2 z-index-10">
+
+      <div class="col-lg-6 mx-auto"  style="height: 400px;">
+        <div class="card shadow-v2">
+         <div class="card-header border-bottom">
+          <h4 class="mt-2">
+            Vous n'êtes pas encore inscrit à un mastère pour la première année <br /> {{anneeUniversitaire}}  ?
+          </h4>
+         </div>
+          <div class="card-body">
+              <button class="btn btn-success text-center btn-sm my-5" routerLink="/demande">Veuillez vous inscrire à un mastère d'abord</button>
+              <p class="text-center">
+                Vous n'avez pas de compte? <a class="text-primary">S'incrire</a>
+              </p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6 mx-auto">
+        <div class="card shadow-v2">
+         <div class="card-header border-bottom">
+          <h4 class="mt-2">
+            Connexion pour le suivi de vos dossiers en première année mastère
+          </h4>
+         </div>
+          <div class="card-body">
+            <div *ngIf="loginservice.errMess && nb>0" class="error">
+              <h2>Erreur</h2>
+              <h4>{{ 'Peut être que votre Serveur est éteint oubien vous n\'est pas connecté ou encore Veuillez verifier l\'URL de base de votre serveur: '+
+             loginservice.errMess.message.substr(25, tailleUrl+1) }}</h4>
+            </div>
+            <p> {{ user | json }} </p>
+            <form action="#" method="POST" class="px-lg-1">
+              <div class="input-group input-group--focus mb-1">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-email"></span>
+                </div>
+                <input type="text" class="form-control border-left-0 pl-0" placeholder="Username" name="username" [(ngModel)]="user.username">
+              </div>
+              <div class="input-group input-group--focus mb-1">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-lock"></span>
+                </div>
+                <input type="password" name="password" [(ngModel)]="user.password" class="form-control border-left-0 pl-0" placeholder="Password">
+              </div>
+              <div class="d-md-flex justify-content-between">
+                <label class="ec-checkbox check-sm clearfix">
+                  <input type="checkbox" name="checkbox">
+                  <span class="ec-checkbox__control"></span>
+                  <span class="ec-checkbox__lebel">Se rappeler de moi</span>
+                </label>
+                <a  class="text-primary d-block">mot de passe oublié?</a>
+              </div>
+              <button (click)=checkLogin() class="btn btn-success btn-sm">
+                Se connecter
+              </button>
+              <p class="text-center">
+                Vous n'avez pas de compte? <a class="text-primary">S'incrire</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    </div>
+  </div> <!-- END container-->
+</section>
+
+

@@ -1,0 +1,65 @@
+<section class="padding-y-10 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="card shadow-v2">
+         <div class="card-header border-bottom">
+          <h4 class="mt-1">
+            Editer votre prodile
+          </h4>
+         </div>
+          <div class="card-body">
+            <!--<p>{{ etudiantForm.value | json }} {{ etudiantForm.status | json }}</p>-->
+            <form novalidate [formGroup]="etudiantForm" #fform="ngForm" (ngSubmit)="onSubmit()" class="px-lg-4">
+              <div class="input-group input-group--focus mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-user"></span>
+                </div>
+                <input type="text" class="form-control border-left-0 pl-0" placeholder="Prénom" [(ngModel)]="user.firstname" formControlName="firstname" required>
+              </div>
+              <div class="error" *ngIf="etudiantForm.get('firstname') && formErrors.firstname">{{formErrors.firstname}}</div>
+              <div class="input-group input-group--focus mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-user"></span>
+                </div>
+                <input type="text" class="form-control border-left-0 pl-0" placeholder="Nom" [(ngModel)]="user.lastname"  formControlName="lastname" required>
+              </div>
+              <div class="error" *ngIf="etudiantForm.get('lastname') && formErrors.lastname">{{formErrors.lastname}}</div>
+              <div class="input-group input-group--focus mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-key"></span>
+                </div>
+                <input type="text" class="form-control border-left-0 pl-0" placeholder="cin" [(ngModel)]="user.cin"  formControlName="cin" required>
+              </div>
+              <div class="error" *ngIf="etudiantForm.get('cin') && formErrors.cin">{{formErrors.cin}}</div>
+              <div class="input-group input-group--focus mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-email"></span>
+                </div>
+                <input type="email" class="form-control border-left-0 pl-0" placeholder="email" [(ngModel)]="user.email" formControlName="email" required>
+              </div>
+              <div class="error" *ngIf="etudiantForm.get('email') ">{{formErrors.email}}</div>
+              <div class="input-group input-group-focus mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-mobile"></span>
+                </div>
+                <input type="tel" class="form-control border-left-0 pl-0" placeholder="Num. Tel" [(ngModel)]="user.telephone" formControlName="telephone" required >
+              </div>
+              <div class="error" *ngIf="etudiantForm.get('telephone') && formErrors.telephone">{{formErrors.telephone}}</div>
+              <div class="d-md-flex justify-content-between">
+              </div>
+              <button [disabled]="etudiantForm.invalid" class="btn btn-success">
+                Mettre à jour
+              </button>
+              <div *ngIf="errMess" class="error">
+                <h2>Erreur</h2>
+                <h4>{{errMess}}</h4>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>

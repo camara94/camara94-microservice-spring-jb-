@@ -1,0 +1,47 @@
+<div class="container padding-y-20" *ngIf="scrool">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+    </div>
+  </div>
+</div>
+<form class="bg-light" novalidate [formGroup]="domaineForm" #fform="ngForm" (ngSubmit)="onSubmit()" *ngIf="!scrool" >
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 mx-auto">
+        <div class="card shadow-v2 mt-2">
+         <div class="card-header border-bottom pb-0 pt-0">
+          <h4 class="mt-2">
+            Ajouter un Domaine {{domaineForm.value | json}}
+          </h4>
+         </div>
+          <div class="card-body pb-2 pt-1">
+
+            <div class="row"></div>
+
+            <div class="row">
+              <label class="col-md-5 pt-3">Le libelle du domaine</label>
+              <div class="col-md-7">
+                <mat-form-field class="example-full-width">
+                  <mat-label *ngIf="!domaineForm.get('libelle') && !formErrors.libelle">Le libelle du domaine</mat-label>
+                  <mat-label class="error" *ngIf="domaineForm.get('libelle') && formErrors.libelle">{{formErrors.libelle}}</mat-label>
+                  <input matInput placeholder="libelle" formControlName="libelle">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+
+  <div class="container">
+    <div class="row">
+      <button (click)="addDomaines()" [disabled]="domaineForm.invalid"  class="col-lg-4 btn btn-primary btn-sm mt-2 mb-3 offset-md-4" >Ajouter un rélévé</button>
+    </div>
+  </div>
+</form>
+
+
+

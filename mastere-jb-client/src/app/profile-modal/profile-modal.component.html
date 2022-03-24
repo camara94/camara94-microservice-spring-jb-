@@ -1,0 +1,125 @@
+ <!-- Modal detail de BAC-->
+
+  <div class="container" role="document" *ngIf="data.position == 1">
+    <div class="row">
+      <div class="col-12">
+        <h5 >{{ data.donnee.option }}</h5>
+        </div>
+           <table class="table table-striped table-bordered">
+              <tr>
+                <th>Ecole d'origine</th>
+                <th>Option</th>
+                <th>Moyenne</th>
+                <th>Année</th>
+                <th scope="col">Justificatif</th>
+              </tr>
+              <tr>
+                <td> {{ data.donnee.ecole }} </td>
+                <td> {{ data.donnee.option }} </td>
+                <td> {{ data.donnee.moyenne}} </td>
+                <td> {{ data.donnee.annee }} </td>
+                <td> <button class="btn btn-warning btn-sm" (click)="openDialog(data.donnee.file)"  > <i class="fa fa-eye fa-sm"></i> </button> </td>
+              </tr>
+            </table>
+        <div >
+          <button class="btn btn-primary btn-sm ml-0"  [routerLink]="['/update-bac', data.donnee.id]" (click)="closeDialog()" ><i class="ti-file"></i> Mettre à jour le BAC</button>
+        </div>
+    </div>
+  </div>
+
+
+  <!-- Modal detail de licence-->
+<div  class="container" *ngIf="data.position === 2" >
+  <div class="row">
+    <div class="col-12">
+        <h5>{{ data.donnee.titre }}</h5>
+
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Titre</th>
+            <th>Moyenne</th>
+            <th>Année</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let note of data.donnee.anneeUniversitaires">
+            <td> {{ note.titre }} </td>
+            <td> {{ note.moyenne }} </td>
+            <td> {{ note.annee }} </td>
+            <td>
+              <button class="btn btn-info btn-sm"   data-dismiss="modal"  [routerLink]="['/update-releve', note.id]"><i class="ti-pencil"></i></button>&nbsp;&nbsp;
+              <button class="btn btn-success btn-sm" (click)="openDialog(note.file)"> <i class="fa fa-eye fa-sm"></i> </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    <div>
+      <button type="button" class="btn btn-danger btn-sm" (click)="closeDialog()" >Fermer</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Formation détail -->
+<div  class="container" *ngIf="data.position === 3" >
+  <div class="row">
+    <div class="col-12">
+        <h5>{{ data.donnee.titre }}</h5>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Titre</th>
+            <th>Plateforme</th>
+            <th>Durée</th>
+            <th>Date de debut</th>
+            <th>Date de fin</th>
+            <th>Justificatif</th>
+          </tr>
+          <tr>
+            <td> {{ data.donnee.titre }} </td>
+            <td>
+              <span *ngIf="data.donnee.plateforme != null"> {{data.donnee.plateforme }} </span>
+              <span *ngIf="data.donnee.plateforme == null"> {{ 'PlateForme' }} </span>
+            </td>
+            <td> {{ data.donnee.duree}} {{ data.donnee.typeDuree }} </td>
+            <td> {{ data.donnee.dateDebut | date }} </td>
+            <td> {{ data.donnee.dateFin | date }} </td>
+            <td>
+              <button class="btn btn-success btn-sm" (click)="openDialog(data.donnee.file)"> <i class="fa fa-eye fa-sm"></i> </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary btn-sm ml-0"  data-dismiss="modal" [routerLink]="['/add-formation', data.donnee.id]"><i class="ti-file"></i> Ajouter un Rélévé</button>
+          <button type="button" class="btn btn-danger btn-sm" (click)="closeDialog()" >Fermer</button>
+      </div>
+</div>
+
+
+<!-- Modal detail de distinction -->
+
+<div  class="container" *ngIf="data.position === 4" >
+  {{ data.donnee.moyenne }}
+  <div class="row">
+    <div class="col-12">
+        <h5>{{ data.donnee.context }}</h5>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Context</th>
+            <th>Description</th>
+            <th>Organisation</th>
+            <th>Date</th>
+          </tr>
+          <tr>
+            <td> {{ data.donnee.context }} </td>
+            <td> {{ data.donnee.description }} </td>
+            <td> {{ data.donnee.organisation}} </td>
+            <td> {{ data.donnee.date | date }} </td>
+          </tr>
+        </table>
+        <div>
+          <button type="button" class="btn btn-danger btn-sm" (click)="closeDialog()" >Fermer</button>
+        </div>
+    </div>
+  </div>
+</div>

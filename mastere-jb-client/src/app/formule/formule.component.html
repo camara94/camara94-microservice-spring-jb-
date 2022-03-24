@@ -1,0 +1,193 @@
+<div class="container padding-y-35" *ngIf="action == 'nothing'">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <button class="btn btn-primary btn-sm" (click)="gestionDesFormules('add')"> Ajouter une Formule </button>
+      &nbsp;&nbsp;
+      <button class="btn btn-info btn-sm" (click)="gestionDesFormules('update')"> Mettre à jour une Formule </button>
+    </div>
+  </div>
+</div>
+
+<div class="container padding-y-35" *ngIf="action == 'add'">
+  <div class="row">
+    <div class="col-md-8 mx-auto m-10" *ngIf="masteres != null">
+      <label class="col-md-5 pt-3">Selection Un Mastère</label>
+      <mat-form-field>
+        <mat-label>Selection Un Mastère</mat-label>
+        <mat-select>
+          <mat-option width="300"   *ngFor="let mastere of mastereSansFormules; let i=index" [value]="mastere"
+          (click)="selectedMastere(mastere)"  >
+            <i class="fa fa-school"></i> &nbsp;&nbsp;
+            {{mastere.libele }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <button class="btn btn-primary btn-sm" (click)="ajouterUneFormule()"> Ajouter une Formule </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="container padding-y-35" *ngIf="action == 'update'">
+  <div class="row">
+    <div class="col-md-8 mx-auto m-10" *ngIf="masteres != null">
+      <label class="col-md-5 pt-3">Selection Un Mastère</label>
+      <mat-form-field>
+        <mat-label>Selection Un Mastère</mat-label>
+        <mat-select>
+          <mat-option width="300"   *ngFor="let mastere of mastereAvecFormules; let i=index" [value]="mastere.id"
+          (click)="selectedMastere(mastere)"  >
+            <i class="fa fa-school"></i> &nbsp;&nbsp;
+            {{mastere.libele }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <button class="btn btn-info btn-sm" (click)="gestionDesFormules('print')"> Ajouter une Formule </button>
+    </div>
+  </div>
+</div>
+
+
+<form class="bg-light mt-2" novalidate [formGroup]="formuleForm" #fform="ngForm" (ngSubmit)="onSubmit()" *ngIf="action=='print'" >
+  <div  class="container">
+    <div class="row">
+            <!--
+        Les releves
+      -->
+    <div class="col-md-8 mx-auto">
+      <div  class="row">
+        <div class="table-responsive">
+        <table class="table table-bordered" *ngIf="mastere.id > 0=== true">
+          <thead>
+            <tr>
+             <!--<th>Active</th>-->
+              <th>Critère</th>
+              <th>Coefficient</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>
+                <button class="btn btn-info btn-sm offset-md-4" (click)="openDialog(mastere)"  > Visualister la Formule </button>
+              </th>
+              <th>
+                <button class="btn btn-primary btn-sm offset-md-4" (click)="updateUneFormule(mastere.champFormule.id)" > Mettre à jour </button>
+              </th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr>
+              <td> Moyenne du BAC </td>
+              <td> <input type="text" formControlName="coefficientBac" [(ngModel)]="mastere.champFormule.coefficientBac"  /> </td>
+            </tr>
+            <tr>
+              <td> Mention du BAC </td>
+              <td> <input type="text" formControlName="mentionBac" [(ngModel)]="mastere.champFormule.mentionBac" /> </td>
+            <tr>
+              <td> Session Principale </td>
+              <td> <input type="text" formControlName="coefficientSessionPrincipale"
+                [(ngModel)]="mastere.champFormule.coefficientSessionPrincipale"  /> </td>
+            </tr>
+            <tr>
+              <td> Moyenne Année univ </td>
+              <td> <input type="text" formControlName="coefficientAnneeUniversitaire"
+                [(ngModel)]="mastere.champFormule.coefficientAnneeUniversitaire" />
+              </td>
+            </tr>
+            <tr>
+              <td> Rédouble </td>
+              <td> <input type="text" formControlName="coefficientRedouble"
+                [(ngModel)]="mastere.champFormule.coefficientRedouble"/>
+              </td>
+            </tr>
+            <tr>
+              <td> Mention Abien </td>
+              <td> <input type="text" formControlName="coefficientMentionABien"
+                [(ngModel)]="mastere.champFormule.coefficientMentionABien" />
+              </td>
+            </tr>
+            <tr>
+              <td> Mention Bien </td>
+              <td> <input type="text" formControlName="coefficientMentionBien"
+                [(ngModel)]="mastere.champFormule.coefficientMentionBien" />
+              </td>
+            </tr>
+            <tr>
+              <td> Mention Tbien </td>
+              <td> <input type="text" formControlName="coefficientMentionTBien"
+                [(ngModel)]="mastere.champFormule.coefficientMentionTBien" />
+              </td>
+            </tr>
+            <tr>
+              <td> AnneeSup </td>
+              <td> <input type="text" formControlName="coefficientAnneeSupplementaire"
+                [(ngModel)]="mastere.champFormule.coefficientAnneeSupplementaire" />
+              </td>
+            </tr>
+            <tr>
+              <td> Formation </td>
+              <td> <input type="text"  formControlName="coefficientFormation"
+                [(ngModel)]="mastere.champFormule.coefficientFormation" /> </td>
+            </tr>
+            <tr>
+              <td> Stage </td>
+              <td> <input type="text" formControlName="coefficientStage"
+                [(ngModel)]="mastere.champFormule.coefficientStage"  /> </td>
+            </tr>
+            <tr>
+              <td> Expérience </td>
+              <td> <input type="text" formControlName="coefficientExperience"
+                [(ngModel)]="mastere.champFormule.coefficientExperience" /> </td>
+            </tr>
+            <tr>
+              <td> Certificat </td>
+              <td> <input type="text" formControlName="coefficientCertificat"
+                [(ngModel)]="mastere.champFormule.coefficientCertificat" /> </td>
+            </tr>
+            <tr>
+              <td> Coefficient Distinction </td>
+              <td> <input type="text" formControlName="coefficientDistinction"
+                [(ngModel)]="mastere.champFormule.coefficientDistinction" />
+              </td>
+            </tr>
+            <tr>
+              <td> Nombre Limite De Certificat </td>
+              <td> <input type="text" formControlName="nombreLimiteDeCertificat"
+                [(ngModel)]="mastere.champFormule.nombreLimiteDeCertificat" /> </td>
+            </tr>
+            <tr>
+              <td> Nombre Limite De Formation </td>
+              <td> <input type="text" formControlName="nombreLimiteDeFormation"
+                [(ngModel)]="mastere.champFormule.nombreLimiteDeFormation" /> </td>
+            </tr>
+            <tr>
+              <td> Nombre Limite De Stage </td>
+              <td> <input type="text" formControlName="nombreLimiteDeStage"
+                [(ngModel)]="mastere.champFormule.nombreLimiteDeStage" /> </td>
+            </tr>
+            <tr>
+              <td> Nombre Limite D'Experience </td>
+              <td> <input type="text" formControlName="nombreLimiteDExperience"
+                [(ngModel)]="mastere.champFormule.nombreLimiteDExperience" /> </td>
+
+            </tr>
+            <tr>
+              <td> Nombre De Redoublement Max </td>
+              <td> <input type="text" formControlName="nombreDeRedoublementMax"
+                [(ngModel)]="mastere.champFormule.nombreDeRedoublementMax" /> </td>
+
+            </tr>
+          </tbody>
+        </table>
+       </div>
+      </div>
+
+    </div>

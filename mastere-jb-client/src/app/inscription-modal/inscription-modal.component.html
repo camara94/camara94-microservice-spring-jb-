@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  Confirmation
+<span class="flex-spacer"></span>
+<button mat-button mat-dialog-close>&times;</button>
+</mat-toolbar>
+<mat-dialog-content>
+  <div class="alert alert-danger" role="alert">
+    {{ data.reponse.reponse }} <strong>{{ ' ' + data.reponse.titre }}</strong>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <span class="flex-spacer"></span>
+  <button  mat-button mat-dialog-close class="background-primary text-floral-white" routerLink="/profile" >profie</button>
+</mat-dialog-actions>

@@ -1,0 +1,32 @@
+<section class="" *ngIf="etablissements"  >
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h4><span class="text-primary"> La liste des Mastères </span> </h4>
+      </div>
+
+      <div class="col-12 mx-auto">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Nom Mastère</th>
+                <th scope="col">Mention</th>
+                <th scope="col">Type</th>
+                <th scope="col">Etablissement</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let etablissement  of etablissements; let index=index">
+                <tr *ngFor="let mastere  of  etablissement.masteres; let index=index" >
+                  <th scope="row"> {{mastere.libele}} </th>
+                  <th scope="row"> {{ mastere.mention.nom }} </th>
+                  <td> {{ mastere.type.nom }} </td>
+                  <td> {{etablissement.nom}} </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

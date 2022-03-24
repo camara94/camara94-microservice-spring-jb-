@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 mt-5">
+      <div class="d-md-flex justify-content-between align-items-center bg-white shadow-v1 rounded mb-4 py-4 px-5 hover:transformLeft">
+        <table class="table table-bordered" >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Option</th>
+              <th>Ecole D'origine</th>
+              <th>Année</th>
+              <td>Justificatif</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngIf="etudiant.bac != null">
+              <td> {{ etudiant.bac.id }} </td>
+              <td> {{ etudiant.bac.option }} </td>
+              <td> {{ etudiant.bac.ecole }} </td>
+              <td> {{ etudiant.bac.annee }} </td>
+              <td class="text-center">
+                <button class="btn btn-info btn-sm" (click)="openDialog(etudiant.bac.file)" ><i class="far fa-eye fa-sm"></i></button>
+              </td>
+            </tr>
+            <tr class="text-center">
+              <td colspan="5">
+                <button class="btn btn-success btn-sm mr-2" *ngIf="etudiant.bac != null"><a  [routerLink]="['/update-bac', etudiant.bac.id]" >Mettre à jour le BAC</a></button>
+                <button class="btn btn-danger btn-sm" *ngIf="etudiant.bac != null" data-toggle="modal" data-target="#supprimerBacModal"><a >Supprimer le BAC</a></button>
+                <li class="btn btn-primary btn-sm" *ngIf="etudiant.bac == null"  ><a [routerLink]="['/add-bac', etudiant.id]">Ajouter le BAC</a></li>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal  de suppression d'une bac-->
+<div class="modal fade m-0" id="supprimerBacModal"  role="dialog" aria-labelledby="supprimerBacModal" *ngIf="etudiant.bac != null" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-0">
+      <div class="modal-body m-0">
+          <div class="alert alert-danger m-1" role="alert" >
+                 Etes-vous sûr de bien vouloir supprimer <br>
+                le BAC <strong>{{ etudiant.bac.option }}</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container padding-y-20" *ngIf="scrool">
+          <div class="row">
+            <div class="mx-auto">
+              <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button data-dismiss="modal" (click)="deleteBac(etudiant.bac.id, etudiant.id)" class="btn btn-success btn-sm">OK</button>&nbsp;
+          <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

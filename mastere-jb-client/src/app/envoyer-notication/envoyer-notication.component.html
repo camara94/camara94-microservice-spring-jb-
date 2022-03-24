@@ -1,0 +1,33 @@
+<div class="bg-contact3" style="background-image: url('../../assets/images/bg-01.jpg');">
+  <div class="container-contact3">
+    <div class="wrap-contact3">
+      <form class="contact3-form validate-form" novalidate [formGroup]="sendNotificationForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+        <span class="contact3-form-title">
+          Notification
+        </span>
+        <div class="wrap-input3 validate-input" data-validate="Name is required">
+          <input class="input3" type="text"  placeholder="Le nom est requis" [value]="data.etudiant.firstname + ' '+ data.etudiant.lastname" >
+        </div>
+
+        <div class="wrap-input3 validate-input" data-validate = "email valide es requis: ex@abc.xyz">
+          <input class="input3" type="text" formControlName="sendTo" placeholder="email valide es requis: ex@abc.xyz"
+          [(ngModel)]="data.etudiant.email" focus >
+        </div>
+
+
+
+        <div class="wrap-input3 validate-input" data-validate = "Message is required">
+          <textarea class="input3" name="message" formControlName="body" placeholder="Votre Message ici..."></textarea>
+        </div>
+        <div class="error" *ngIf="sendNotificationForm.get('body') ">{{formErrors.body}}</div>
+
+        <div class="container-contact3-form-btn">
+          <button class="contact3-form-btn">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,105 @@
+
+
+<div class="container padding-y-20" *ngIf="scrool">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+    </div>
+  </div>
+</div>
+<form class="bg-light" novalidate [formGroup]="diplomeForm" #fform="ngForm" (ngSubmit)="onSubmit()" *ngIf="!scrool" >
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 mx-auto">
+        <div class="card shadow-v2 mt-2">
+         <div class="card-header border-bottom pb-0 pt-0">
+          <h4 class="mt-2">
+            Ajouter un Diplôme {{diplomeForm.value | json}} {{diplomeForm.status}}
+          </h4>
+         </div>
+          <div class="card-body pb-2 pt-1">
+
+            <div class="row"></div>
+
+            <div class="row">
+              <label class="col-md-4 pt-3">Le titre du dernier diplôme</label>
+              <div class="col-md-8">
+                <mat-form-field class="example-full-width">
+                  <mat-label *ngIf="!diplomeForm.get('titre') && !formErrors.titre">Le titre du dernier</mat-label>
+                  <mat-label class="error" *ngIf="diplomeForm.get('titre') && formErrors.titre">{{formErrors.titre}}</mat-label>
+                  <input matInput placeholder="titre" formControlName="titre">
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <label class="col-md-4 pt-3">Selection votre établissement</label>
+              <div class="col-md-8">
+                <mat-form-field>
+                  <mat-label>Selectionner une année Universitaire</mat-label>
+                  <mat-select formControlName="etablissement">
+                    <mat-option width="300"   *ngFor="let etablissement of etablissements; let i=index" [value]="etablissement.id" >
+                      <i class="fa fa-school"></i> &nbsp;&nbsp;
+                      {{etablissement.nom}}
+                    </mat-option>
+
+                    <mat-option >
+                      <i class="fa fa-school"></i> &nbsp;&nbsp;
+                      <span> Autre </span>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="error" *ngIf="diplomeForm.get('universite') && formErrors.etablissement">{{formErrors.etablissement}}</div>
+
+
+            <div class="row">
+              <label class="col-md-4 pt-3">Année d'obtention du </label>
+              <div class="col-md-8">
+                <mat-form-field class="example-full-width">
+                  <mat-label *ngIf="!diplomeForm.get('annee') && !formErrors.annee">dernier dipôme</mat-label>
+                  <mat-label class="error" *ngIf="diplomeForm.get('annee') && formErrors.annee">{{formErrors.annee}}</mat-label>
+                  <input matInput placeholder="dernier dipôme" formControlName="annee">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="col-md-4 pt-3">Télécharger le fichier</label>
+              <div class="col-md-8">
+                <mat-form-field appearance="legacy">
+                  <input type="file" formControlName="url" placeholder="le fichier">
+                  <mat-icon matSuffix>folder</mat-icon>
+                </mat-form-field>
+
+              </div>
+            </div>
+
+
+
+            <div class="row">
+              <label class="col-md-4 pt-3">Le nombre d'année </label>
+              <div class="col-md-8">
+                <mat-form-field class="example-full-width">
+                  <mat-label *ngIf="!diplomeForm.get('nbreAnneeUniversitaire') && !formErrors.nbreAnneeUniversitaire">universitaires</mat-label>
+                  <mat-label class="error" *ngIf="diplomeForm.get('nbreAnneeUniversitaire') && formErrors.nbreAnneeUniversitaire">{{formErrors.nbreAnneeUniversitaire}}</mat-label>
+                  <input matInput placeholder="Universitaire" formControlName="nbreAnneeUniversitaire">
+                </mat-form-field>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+
+  <div class="container">
+    <div class="row">
+      <button [disabled]="diplomeForm.invalid"  (click)="ajouter()"  class="col-lg-4 btn btn-primary btn-sm mt-2 mb-3 offset-md-4" >Ajouter</button>
+    </div>
+  </div>
+</form>

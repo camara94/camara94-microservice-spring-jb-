@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'variables';
+/*@import '../node_modules/font-awesome/scss/font-awesome';*/
+/*@import '~@angular/material/prebuilt-themes/indigo-pink.css';*/
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.background-primary {
+  background-color: #512DA8!important;
+}
+.background-accent {
+  background-color: #FFC107!important;
+}
+.text-floral-white {
+  color: floralwhite!important;
+}
+
+.flex-spacer {
+  flex: 1 1 auto;
+}
+
+
+.error, .error h4 {
+  font-style: italic;
+  font-size: 1em;
+  color: red;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+.mat-form-field {
+  width: 100%;
+}

@@ -1,0 +1,78 @@
+<div class="container padding-y-20" *ngIf="chargement">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate"></mat-spinner><h4>En chargement . . . Veuillez patienter, s'il vous plaît</h4>
+    </div>
+  </div>
+</div>
+<section class="padding-y-30 bg-light" *ngIf="!chargement">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-8 mx-auto">
+        <div class="card shadow-v2">
+         <div class="card-header border-bottom">
+          <h4 class="mt-4">
+            Appel à la Candidature
+          </h4>
+         </div>
+         <!--
+         <p>{{ mastereForm.value | json }} {{ mastereForm.status | json }}</p>
+          -->
+          <div class="card-body">
+            <div class="row"></div>
+            <form novalidate [formGroup]="appelForm" (ngSubmit)="onSubmit()" class="px-lg-4">
+
+              <div class="row">
+                <label class="col-md-5 pt-3">Selection votre établissement</label>
+                <div class="col-md-7">
+                  <mat-form-field>
+                    <mat-label>Selection votre établissement</mat-label>
+                    <mat-select formControlName="etablissementId">
+                      <mat-option width="300"
+                       *ngFor="let etab of etablissements; let i=index" [value]="etab.id"
+                       (click)="selectedEtablissement(etab.id)"  >
+                        <i class="fa fa-school"></i> &nbsp;&nbsp;
+                        {{etab.nom}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="col-md-5 pt-3">Année Universitaire</label>
+                <div class="col-md-7">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Année Universitaire</mat-label>
+                    <input matInput placeholder="Ex. 2020-2021" formControlName="anneeUniversitaire" >
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row" *ngIf="etablissement != null">
+                <label class="col-md-5 pt-3">Selectionner un Mastère</label>
+                <div class="col-md-7">
+                  <mat-form-field>
+                    <mat-label>Selectionner un Mastère</mat-label>
+                    <mat-select formControlName="mastereId">
+                        <mat-option width="300"   *ngFor="let mastere of etablissement.masteres; let i=index" [value]="mastere.id" >
+                          <i class="fa fa-school"></i> &nbsp;&nbsp;
+                          {{ mastere.libele }}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button class="btn btn-success" >
+                Lancer Appel à la Candidature
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>

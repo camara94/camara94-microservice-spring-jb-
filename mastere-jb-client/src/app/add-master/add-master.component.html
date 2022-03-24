@@ -1,0 +1,125 @@
+<div class="container padding-y-20" *ngIf="chargement">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate"></mat-spinner><h4>En chargement . . . Veuillez patienter, s'il vous plaît</h4>
+    </div>
+  </div>
+</div>
+<section class="padding-y-30 bg-light" *ngIf="!chargement">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-8 mx-auto">
+        <div class="card shadow-v2">
+         <div class="card-header border-bottom">
+          <h4 class="mt-4">
+            Ajouter un Mastère
+          </h4>
+         </div>
+         <!--
+         <p>{{ mastereForm.value | json }} {{ mastereForm.status | json }}</p>
+          -->
+          <div class="card-body">
+            <div class="row"></div>
+            <form novalidate [formGroup]="mastereForm" (ngSubmit)="onSubmit()" class="px-lg-4">
+
+              <div class="input-group input-group--focus mb-3">
+                <input type="text" class="form-control border-right-0 pr-0" placeholder="Le nom du mastère" formControlName="libele">
+                <div class="input-group-append">
+                  <span class="input-group-text bg-white"></span>
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="col-md-5 pt-3">Selection votre établissement</label>
+                <div class="col-md-7" *ngIf="!etablissementNExistePas">
+                  <mat-form-field>
+                    <mat-label>Selectionner une année Universitaire</mat-label>
+                    <mat-select formControlName="etablissement">
+                      <mat-option width="300"   *ngFor="let etablissement of etablissements; let i=index" [value]="etablissement.id" >
+                        <i class="fa fa-school"></i> &nbsp;&nbsp;
+                        {{etablissement.nom}}
+                      </mat-option>
+
+                      <mat-option (click)="activeAutreEtablissement()">
+                        <i class="fa fa-school"></i> &nbsp;&nbsp;
+                        <span > Autre </span>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-7" *ngIf="etablissementNExistePas">
+                  <mat-form-field>
+                    <input matInput placeholder="Nom de l'établissement" type="text" [(ngModel)]="nomEtablissement" formControlName="nomEtablissement" required>
+
+                  </mat-form-field>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <label class="col-md-5 pt-3">Selectionner la Mention</label>
+                <div class="col-md-7" *ngIf="!mentionNExistePas">
+                  <mat-form-field>
+                    <mat-label>Selectionner une année Universitaire</mat-label>
+                    <mat-select formControlName="mention">
+                      <mat-option width="300"   *ngFor="let mention of mentions; let i=index" [value]="mention.id" >
+                        <i class="fa fa-school"></i> &nbsp;&nbsp;
+                        {{mention.nom}}
+                      </mat-option>
+
+                      <mat-option (click)="activeAutreMention()">
+                        <i class="fa fa-school"></i> &nbsp;&nbsp;
+                        <span> Autre </span>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-7" *ngIf="mentionNExistePas">
+                  <mat-form-field>
+                    <input matInput placeholder="Nom de Mention" type="text" [(ngModel)]="nomMention" formControlName="nomMention" required>
+
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="col-md-5 pt-3">Selectionner le Type</label>
+                <div class="col-md-7" *ngIf="!typeNExistePas">
+                  <mat-form-field>
+                    <mat-label>Selectionner le Type</mat-label>
+                    <mat-select formControlName="type">
+                      <mat-option width="300"   *ngFor="let type of types; let i=index" [value]="type.id" >
+                        <i class="fa fa-school"></i> &nbsp;&nbsp;
+                        {{type.nom}}
+                      </mat-option>
+
+                      <mat-option (click)="activeAutreType()" >
+                        <i class="fa fa-school"></i> &nbsp;&nbsp;
+                        <span> Autre </span>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-7" *ngIf="typeNExistePas">
+                  <mat-form-field>
+                    <input matInput placeholder="Nom du Type" type="text" [(ngModel)]="nomType" formControlName="nomType" required>
+
+                  </mat-form-field>
+                </div>
+              </div>
+              <button  (click)="addMastere()" class="btn btn-success" >
+                Ajouter Mastère
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>

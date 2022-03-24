@@ -1,0 +1,231 @@
+<section>
+<!--
+
+  <div class="container">
+   <div class="row">
+     <div class="col-12">
+      <ol class="breadcrumb breadcrumb-triangle breadcrumb-expand bg-transparent p-0 rounded-0">
+        <li class="breadcrumb-item">
+          <a routerLink="/home" > <i class="ti-home mr-1"></i> Accueil</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/about" > <i class="ti-settings mr-1"></i> Apropos</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/demande" > <i class="ti-layers mr-1"></i> Elements</a>
+        </li>
+        <li class="breadcrumb-item current">
+          <a routerLink="/demande" > <i class="ti-book mr-1"></i> Demande de Candidature</a>
+        </li>
+      </ol>
+     </div>
+   </div>
+  </div> -->
+
+</section>
+
+<section *ngIf="!filterListeCandidat" class="wow fadeIn">
+  <div class="container mt-5">
+
+    <div class="row align-items-center">
+
+     <div class="col-md-8 mx-auto">
+      <form action="#" method="POST" class="px-lg-4 text-center">
+        <div>
+          <h4 class="mb-0"><i class="fa fa-school text-primary"></i> Etablissement</h4>
+          <mat-form-field>
+            <mat-label>Selectionner un établissement</mat-label>
+            <mat-select>
+              <mat-option
+              *ngFor="let etablissement of etablissements; let index = index; let isFirst = first; let isOdd = odd;"
+               (click)="getUnEtablissement(index)" [value]="etablissement.nom" >
+                <i class="fa fa-school"></i> &nbsp;&nbsp;
+                <span > {{ etablissement.nom }} </span>
+              </mat-option>
+
+              <mat-option >
+                <i class="fa fa-school"></i> &nbsp;&nbsp;
+                <span> Autre </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+
+     </div>
+
+
+
+
+   </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>
+
+
+<section *ngIf="(!filterListeCandidat) && etablissement != null" class="wow fadeIn">
+  <div class="container">
+
+    <div class="row align-items-center">
+
+     <div class="col-md-8 mx-auto">
+      <form action="#" method="POST" class="px-lg-4 text-center">
+        <div>
+          <h4 class="mb-0"><i class="fa fa-graduation-cap text-primary"></i>Année Universitaire</h4>
+          <mat-form-field>
+            <mat-label>Année Universitaire</mat-label>
+            <mat-select>
+              <mat-option  *ngFor="let annee of annees; let index=index"
+                          (click)="getMastereByAnnee(annee, etablissement)"
+                          [value]="annee"  >
+                <i class="fa fa-school"></i> &nbsp;&nbsp;
+                <span > {{ annee }} </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+
+     </div>
+
+
+
+
+   </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>
+
+
+<section *ngIf="(!filterListeCandidat) && diplayMastere" class="wow fadeIn">
+  <div class="container">
+
+    <div class="row align-items-center">
+
+     <div class="col-md-8 mx-auto">
+      <form action="#" method="POST" class="px-lg-4 text-center">
+        <div>
+          <h4 class="mb-0"><i class="fa fa-graduation-cap text-primary"></i>Mastère</h4>
+          <mat-form-field>
+            <mat-label>Mastère</mat-label>
+            <mat-select>
+              <mat-option  *ngFor="let mastere of masteres ; let index=index"
+                           (click)="getEtudiantsByMastere(mastere)"
+                           [value]="mastere.libele" >
+                <i class="fa fa-school"></i> &nbsp;&nbsp;
+                <span > {{ mastere.libele }} </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+
+     </div>
+   </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>
+
+<section class="container" *ngIf="etudiants != null">
+  <div class="row">
+    <div class="col-md-8 mx-auto mb-2 mt-3">
+      <button *ngIf="etudiants != null && !filterListeCandidat"
+              (click)="appliquerFilter()"
+              class="btn btn-primary btn-sm offset-md-4"
+              >
+                <i class="fa fa-search"></i> Appliquer le filtre</button>
+      <button *ngIf="etudiants != null && filterListeCandidat"
+              (click)="appliquerFilter()"
+              class="btn btn-warning btn-sm offset-md-4">
+                <i class="fa fa-search"> </i> Réinialiser le filtre</button>
+     </div>
+  </div>
+</section>
+
+<section>
+
+<section  class="wow fadeIn" *ngIf="etudiants != null && filterListeCandidat">
+  <div class="container-fluid">
+
+    <div class="row align-items-center">
+
+     <div class="col-md-12 mx-auto">
+       <h2 class="offset-md-4"> {{ mastereSelected.libele }} </h2>
+        <h5 class="text-primary"> {{ etudiants.length }} candidatures sélectionnées </h5>
+        <div class="table-responsive ">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Rang</th>
+                <th>CIN</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Dipôme</th>
+                <th>Score</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+           <tbody>
+            <tr *ngFor="let etudiant of etudiants; let index = index">
+              <td *ngIf="etudiant.validerDossier==true"> {{ (index + 1) }} </td>
+              <td *ngIf="etudiant.validerDossier==true"> {{ etudiant.cin }} </td>
+              <td *ngIf="etudiant.validerDossier==true"> {{ etudiant.lastname }} </td>
+              <td *ngIf="etudiant.validerDossier==true"> {{ etudiant.firstname }} </td>
+              <td *ngIf="etudiant.validerDossier==true">
+                <span *ngIf="etudiant.diplomes[0] != null">{{ etudiant.diplomes[0].titre }}</span>
+                <span *ngIf="etudiant.diplomes[0] == null">Diplôme non déposé encore</span>
+              </td>
+              <td *ngIf="getScoreByEtudiant(mastereSelected.id, etudiant.id) != null && etudiant.validerDossier==true"> {{ getScoreByEtudiant(mastereSelected.id, etudiant.id).score }} </td>
+              <td *ngIf="etudiant.validerDossier==true"> {{ 'Non préselectionné' }} </td>
+              <td *ngIf="etudiant.validerDossier==true">
+                <button
+                      title="Pour consulter le dossier détaillé du candidat"
+                      (click)="openDialog(etudiant.id)"
+                      class="btn btn-primary btn-sm"> <i class="fa fa-folder fa-sm"></i> </button>&nbsp;
+                <button
+                      title="Pour modifier le score du candidat"
+                      class="btn btn-info btn-sm"> <i class="fa fa-edit fa-sm"></i> </button>&nbsp;
+                <button class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt fa-sm"></i> </button>
+              </td>
+            </tr>
+           </tbody>
+          </table>
+
+           <div class="table-responsive" hidden="true" id="htmlData" #htmlData>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Rang</th>
+                <th>CIN</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Dipôme</th>
+                <th>Score</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+           <tbody>
+            <tr *ngFor="let etudiant of etudiants; let index = index">
+              <td *ngIf="etudiant.validerDossier==true"> {{ (index + 1) }} </td>
+              <td *ngIf="etudiant.validerDossier==true"> {{ etudiant.cin }} </td>
+              <td *ngIf="etudiant.validerDossier==true"> {{ etudiant.lastname }} </td>
+              <td *ngIf="etudiant.validerDossier==true"> {{ etudiant.firstname }} </td>
+              <td *ngIf="etudiant.validerDossier==true">
+                <span *ngIf="etudiant.diplomes[0] != null">{{ etudiant.diplomes[0].titre }}</span>
+                <span *ngIf="etudiant.diplomes[0] == null">Diplôme non déposé encore</span>
+              </td>
+              <td *ngIf="getScoreByEtudiant(mastereSelected.id, etudiant.id) != null && etudiant.validerDossier==true"> {{ getScoreByEtudiant(mastereSelected.id, etudiant.id).score }} </td>
+              <td *ngIf="etudiant.validerDossier==true"> {{ 'Non préselectionné' }} </td>
+            </tr>
+           </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 text-center mb-3">
+        <button  class="btn btn-success btn-sm" (click)="openPDF()">Visualiser la liste en PDF</button>&nbsp;&nbsp;
+        <button  class="btn btn-danger btn-sm" (click)="downloadPDF()">Télécharger la liste en PDF</button>
+      </div>
+
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>

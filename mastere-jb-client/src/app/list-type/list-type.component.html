@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row padding-y-20">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Id</th>
+              <th>Libellé</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let type of types, let i = index ">
+              <td> {{ i }} </td>
+              <td> {{ type.id }} </td>
+              <td> {{ type.nom }} </td>
+              <td>
+                <button class="btn btn-info btn-sm" [routerLink]="['/update-type', type.id]" ><i class="ti-pencil"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

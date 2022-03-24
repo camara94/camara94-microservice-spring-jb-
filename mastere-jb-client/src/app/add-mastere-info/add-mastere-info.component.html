@@ -1,0 +1,47 @@
+<div class="container padding-y-20" *ngIf="scrool">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+    </div>
+  </div>
+</div>
+<section class="container">
+  <div class="col-12">
+    <form novalidate [formGroup]="mastereInfoForm" #fform="ngForm" (ngSubmit)="onSubmit()" *ngIf="!scrool">
+      <div class="form-group mt-3">
+        <input type="text" class="form-control rounded-pill" formControlName="titre" placeholder="Le titre du mastère">
+       </div>
+
+       <div class="form-group">
+        <textarea class="form-control rounded-pill" rows="5"
+        placeholder="La description du mastère" formControlName="description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control rounded-pill" rows="5"
+        placeholder="Le public cible" formControlName="publicCible"></textarea>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control rounded-pill" rows="5"
+        placeholder="L'objectif du masètre" formControlName="objectif"></textarea>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control rounded-pill" rows="5"
+        placeholder="Les secteurs d'activité" formControlName="secteur"></textarea>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control rounded-pill" rows="5"
+        placeholder="Les métiers" formControlName="metier"></textarea>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control rounded-pill" rows="5"
+        placeholder="La modalité" formControlName="modalite"></textarea>
+      </div>
+      <button [disabled]="mastereInfoForm.invalid" class="offset-md-5 mb-2 btn btn-primary rounded-pill"> Enrégistrer </button>
+    </form>
+  </div>
+</section>

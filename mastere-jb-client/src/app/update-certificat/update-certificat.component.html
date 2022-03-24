@@ -1,0 +1,75 @@
+<div class="container padding-y-20" *ngIf="scrool">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+    </div>
+  </div>
+</div>
+<form class="bg-light" novalidate [formGroup]="certificatForm" #fform="ngForm" (ngSubmit)="onSubmit()" *ngIf="!scrool" >
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 mx-auto">
+        <div class="card shadow-v2 mt-2">
+         <div class="card-header border-bottom pb-0 pt-0">
+          <h4 class="mt-2">
+            Mettre à jour votre Certficat {{certificatForm.value | json}} {{ certificatForm.valid }}
+          </h4>
+         </div>
+          <div class="card-body pb-2 pt-1">
+
+            <div class="row"></div>
+
+            <div class="row">
+              <label class="col-md-5 pt-3">Intitulé du Certificat</label>
+              <div class="col-md-7">
+                <mat-form-field class="example-full-width">
+                  <mat-label *ngIf="!certificatForm.get('intitule') && !formErrors.intitule">Intitulé du Certificat</mat-label>
+                  <mat-label class="error" *ngIf="certificatForm.get('intitule') && formErrors.intitule">{{formErrors.intitule}}</mat-label>
+                  <input matInput placeholder="Intitulé du Certifica" formControlName="intitule" [(ngModel)]="certificat1.intitule" >
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="col-md-5 pt-3">Organisme du Certificat</label>
+              <div class="col-md-7">
+                <mat-form-field class="example-full-width">
+                  <mat-label *ngIf="!certificatForm.get('organisme') && !formErrors.organisme">Organisme du Certificat</mat-label>
+                  <mat-label class="error" *ngIf="certificatForm.get('organisme') && formErrors.organisme">{{formErrors.organisme}}</mat-label>
+                  <input matInput placeholder="Organisme du Certificat" formControlName="organisme" [(ngModel)]="certificat1.organisme" >
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <label class="col-md-5 pt-3">La date de Certification</label>
+              <div class="col-md-7">
+                <input type="date" class="form-control" placeholder="La date de Certification" formControlName="date">
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="col-md-5 pt-3">Télécharger le fichier</label>
+              <div class="col-md-7">
+                <input type="file" name="file" (change)="fileChanged($event)" [(ngModel)]="certificat1.file" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+
+  <div class="container">
+    <div class="row">
+      <button (click)="update()" [disabled]="certificatForm.invalid"
+              class="col-lg-4 btn btn-primary btn-sm mt-2 mb-3 offset-md-4" >Mettre à jour le Certificat</button>
+    </div>
+  </div>
+</form>
+
+
+

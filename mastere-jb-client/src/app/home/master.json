@@ -1,0 +1,190 @@
+[
+    {
+        "id": 1,
+        "nom": "ISET Djerba",
+        "masteres": [
+            {
+                "id": 1,
+                "libele": "Informatique",
+                "mention": {
+                    "id": 1,
+                    "nom": "Science et Technologie",
+                    "mastere": null,
+                    "domaine": {
+                        "id": 1,
+                        "libelle": "Sciences économiques et de gestion",
+                        "mentions": null
+                    }
+                },
+                "etudiants": [
+                    {
+                        "id": 1,
+                        "nom": "Camara",
+                        "prenom": "Laby Damaro",
+                        "cin": "GN160020",
+                        "email": "ldamaro@gmail.com",
+                        "login": "ldamaro",
+                        "password": "aaaa"
+                    },
+                    {
+                        "id": 2,
+                        "nom": "Condé",
+                        "prenom": "Aly Badara",
+                        "cin": "GN160022",
+                        "email": "abadara@gmail.com",
+                        "login": "abadara",
+                        "password": "bbbb"
+                    }
+                ]
+            },
+            ,{
+                "id": 2,
+                "libele": "Génie Mecanique",
+                "mention": {
+                    "id": 2,
+                    "nom": "finances",
+                    "mastere": null,
+                    "domaine": {
+                        "id": 2,
+                        "libelle": "Sciences et technologies",
+                        "mentions": null
+                    }
+                },
+                "etudiants": []
+            }
+            {
+                "id": 3,
+                "libele": "Administration des affaires",
+                "mention": {
+                    "id": 1,
+                    "nom": "Science et Technologie",
+                    "mastere": null,
+                    "domaine": {
+                        "id": 1,
+                        "libelle": "Sciences économiques et de gestion",
+                        "mentions": null
+                    }
+                },
+                "etudiants": []
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "nom": "ISET Sfax",
+        "masteres": [
+            {
+                "id": 1,
+                "libele": "Informatique",
+                "mention": {
+                    "id": 1,
+                    "nom": "Science et Technologie",
+                    "mastere": null,
+                    "domaine": {
+                        "id": 1,
+                        "libelle": "Sciences économiques et de gestion",
+                        "mentions": null
+                    }
+                },
+                "etudiants": [
+                    {
+                        "id": 1,
+                        "nom": "Camara",
+                        "prenom": "Laby Damaro",
+                        "cin": "GN160020",
+                        "email": "ldamaro@gmail.com",
+                        "login": "ldamaro",
+                        "password": "aaaa"
+                    },
+                    {
+                        "id": 2,
+                        "nom": "Condé",
+                        "prenom": "Aly Badara",
+                        "cin": "GN160022",
+                        "email": "abadara@gmail.com",
+                        "login": "abadara",
+                        "password": "bbbb"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "libele": "Génie Mecanique",
+                "mention": {
+                    "id": 2,
+                    "nom": "finances",
+                    "mastere": null,
+                    "domaine": {
+                        "id": 2,
+                        "libelle": "Sciences et technologies",
+                        "mentions": null
+                    }
+                },
+                "etudiants": []
+            },
+            {
+                "id": 3,
+                "libele": "Administration des affaires",
+                "mention": {
+                    "id": 1,
+                    "nom": "Science et Technologie",
+                    "mastere": null,
+                    "domaine": {
+                        "id": 1,
+                        "libelle": "Sciences économiques et de gestion",
+                        "mentions": null
+                    }
+                },
+                "etudiants": []
+            }
+        ]
+    }
+]
+
+
+
+
+
+@GetMapping( value = "/etablissements" )
+    public List<Etablissement> afficherEtablissement() {
+        
+        List<Mastere> masteres = new ArrayList<Mastere>();
+    
+        
+        Domaine domaine = new Domaine(1L, "Sciences économiques et de gestion");
+        List<Domaine> domaines = new ArrayList<Domaine>();
+        domaines.add(domaine);
+        domaines.add(new Domaine(2L, "Sciences et technologies"));
+        
+        
+        List<Mention> mentions = new ArrayList<Mention>();
+        
+        List<Etudiant> etudiants = new ArrayList<Etudiant>();
+        
+        etudiants.add(new Etudiant(1L, "Camara", "Laby Damaro", "GN160020", "ldamaro@gmail.com", "ldamaro", "aaaa"));
+        etudiants.add(new Etudiant(2L, "Condé", "Aly Badara", "GN160022", "abadara@gmail.com", "abadara", "bbbb"));
+        
+        
+        
+        
+        
+        
+        Mention mention = new Mention(1L, "Science et Technologie", domaine);
+        
+        mentions.add(mention);
+        mentions.add(new Mention(2L, "finances", domaines.get(1)));
+        
+        masteres.add(new Mastere(1L, "Informatique", mention, etudiants));
+        masteres.add(new Mastere(2L, "Génie Mecanique", mentions.get(1)));
+        masteres.add(new Mastere(3L, "Administration des affaires", mention));
+        
+    
+        
+        List<Etablissement> etablissements = new ArrayList<Etablissement>();
+        
+        etablissements.add(new Etablissement(1L, "ISET Djerba", masteres));
+        etablissements.add(new Etablissement(1L, "ISET Sfax", masteres));
+        
+        return etablissements;
+        
+    }

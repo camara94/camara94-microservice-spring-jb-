@@ -1,0 +1,221 @@
+<form action="#" method="POST" class="px-lg-4 text-center">
+  <div>
+    <h2 class="mt-5">Selectionner un </h2>
+    <mat-form-field>
+      <mat-label>Etablissement</mat-label>
+      <mat-select>
+        <mat-option  *ngFor="let etablissement of etablissements; let index = index; let isFirst = first; let isOdd = odd;" (click)="getUnEtablissement(index)" >
+          <i class="fa fa-school"></i> &nbsp;&nbsp;
+          <span> {{ etablissement.nom }} </span>
+        </mat-option>
+
+        <mat-option >
+          <i class="fa fa-school"></i> &nbsp;&nbsp;
+          <span> Autre </span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>
+
+
+<form *ngIf="etablissement != null" class="px-lg-4 text-center">
+  <div class="container">
+    <div class="row">
+      <span cls *ngIf="etablissement"> {{ etablissement.nom }} </span>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="mt-2">Selectionner un   </h3>
+        <mat-form-field>
+          <mat-label>Mastere</mat-label>
+          <mat-select>
+            <mat-option  *ngFor="let mastere of etablissement.masteres; let index=index" (click)="getMastereId(mastere)">
+              <i class="fa fa-school"></i> &nbsp;&nbsp;
+              <span> {{ mastere.libele}} </span>
+            </mat-option>
+
+            <mat-option >
+              <i class="fa fa-school"></i> &nbsp;&nbsp;
+              <span> Autre </span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <h3 class="mt-2">Selectionner une </h3>
+        <mat-form-field>
+          <mat-label>Année Universitaire</mat-label>
+          <mat-select>
+            <mat-option  *ngFor="let annee of annees; let index = index; let isFirst = first; let isOdd = odd;" (click)="getAnnee(annee)">
+              <i class="fa fa-school"></i> &nbsp;&nbsp;
+              <span> {{ annee }} </span>
+            </mat-option>
+
+            <mat-option >
+              <i class="fa fa-school"></i> &nbsp;&nbsp;
+              <span> Autre </span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+
+<!--
+<div *ngIf="inscritMsg" class="container text-center alert alert-warning alert-dismissible fade show" role="alert">
+  {{ inscritMsg }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+</div>
+
+<div *ngIf="inscritMsg" class="container text-center">
+  <button class="btn btn-primary" routerLink="/profile" >Suivre Mes Dossiers</button>
+</div>
+
+
+<section *ngIf="!inscritMsg">
+  <div class="container text-center">
+    <h4>Veuillez choisir votre  - <span class="text-primary">établissement</span></h4>
+  </div>
+-->
+
+<!--
+
+  <div class="container">
+   <div class="row">
+     <div class="col-12">
+      <ol class="breadcrumb breadcrumb-triangle breadcrumb-expand bg-transparent p-0 rounded-0">
+        <li class="breadcrumb-item">
+          <a routerLink="/home" > <i class="ti-home mr-1"></i> Accueil</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/about" > <i class="ti-settings mr-1"></i> Apropos</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/demande" > <i class="ti-layers mr-1"></i> Elements</a>
+        </li>
+        <li class="breadcrumb-item current">
+          <a routerLink="/demande" > <i class="ti-book mr-1"></i> Demande de Candidature</a>
+        </li>
+      </ol>
+     </div>
+   </div>
+  </div> -->
+
+  <!--
+</section>
+
+<section *ngIf="!inscritMsg" class="wow fadeIn">
+  <div class="container">
+
+    <div class="row align-items-center">
+
+     <div class="col-md-6 my-2">
+        <div class="dropdown form-control" data-dropdown-event="hover">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Selectionner un établissement</a>
+          <div class="dropdown-menu form-control" >
+
+            <div *ngFor="let etablissement of etablissements; let index = index; let isFirst = first; let isOdd = odd;" >
+              <a class="dropdown-item" (click)="getUnEtablissement(index)"  >
+                <i class="fa fa-school"></i> &nbsp;&nbsp;
+               <span> {{ etablissement.nom }} </span>
+              </a>
+              <div class="dropdown-divider"></div>
+            </div>
+
+          </div>
+        </div>
+     </div>
+
+     <div class="col-md-6 my-2">
+      <div class="dropdown form-control" data-dropdown-event="hover">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Selectionner une année universitaire</a>
+        <div class="dropdown-menu form-control" >
+
+          <div *ngFor="let annee of annees; let index = index; let isFirst = first; let isOdd = odd; first as isFirst" >
+            <a class="dropdown-item" >
+
+             <span> {{ annee }} </span>
+            </a>
+            <div class="dropdown-divider"></div>
+          </div>
+
+        </div>
+      </div>
+   </div>
+
+
+   </div>
+  </div>
+
+
+
+</section> -->
+
+<section class="" *ngIf="mastere"  >
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h4><span class="text-primary"> {{ etablissement.nom }}  ---<span *ngIf="mastere != null"> {{ mastere.libele}}</span> -- {{annee}}</span> </h4>
+      </div>
+
+      <div class="col-12 mx-auto">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">CIN</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Téléphone</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let etudiant of etudiants; let index=index" >
+                <th scope="row"> cin </th>
+                <th scope="row"> {{ etudiant.last_NAME}} </th>
+                <td> {{ etudiant.first_NAME }} </td>
+                <td> {{ etudiant.email }} </td>
+                <td> {{ etudiant.telephone }} </td>
+                <th> 60 </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="" *ngIf="!mastere && etablissement!=null"  >
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h4><span *ngIf="!mastere && etablissement!=null" class="text-danger">  Désolé Veuillez vérifier pour une autre année</span> </h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mb-5"></div>
+
+<div *ngIf="etabErrMess">
+  <h2>Error</h2>
+  <h4>{{etabErrMess}}</h4>
+</div>
+<div *ngIf="etudError">
+  <h2>Error</h2>
+  <h4>{{etudError}}</h4>
+</div>

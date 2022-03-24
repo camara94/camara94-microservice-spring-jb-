@@ -1,0 +1,13 @@
+<mat-toolbar *ngIf="!errMess" color="primary">
+  Votre compte a été crée avec succèss
+<span class="flex-spacer"></span>
+<button mat-button mat-dialog-close>&times;</button>
+</mat-toolbar>
+<form novalidate #loginForm="ngForm" (ngSubmit)="onSubmit()">
+<mat-dialog-content>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button type="submit" mat-button class="background-primary text-floral-white" routerLink="/login" >Login</button>
+</mat-dialog-actions>
+</form>

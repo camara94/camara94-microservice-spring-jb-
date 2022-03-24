@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="table-responsive my-4">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th>Masteres</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let etablissement of etablissements" >
+            <th scope="row" class="text-dark font-weight-semiBold"> {{ etablissement.nom }} </th>
+            <td>
+              <ol>
+                <li *ngFor="let mastere of etablissement.masteres">
+                  {{ mastere.libele }}
+                </li>
+              </ol>
+            </td>
+
+            <td>
+              <button  type="button" data-toggle="modal" data-target="#detailFormationModal" class="btn btn-primary btn-sm"> <i class="ti-arrow-circle-down"></i></button>&nbsp;
+              <button class="btn btn-info btn-sm" ><i class="ti-pencil"></i></button>&nbsp;
+              <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#supprimerFormationModal"> <i class="ti-cut"></i></button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

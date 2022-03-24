@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  Veuillez Ajouter Votre Etablissement
+<span class="flex-spacer"></span>
+<button mat-button mat-dialog-close>&times;</button>
+</mat-toolbar>
+
+<div *ngIf="errMess">
+<h2>Error</h2>
+<h4>{{errMess}}</h4>
+</div>
+
+<form novalidate #loginForm="ngForm" (ngSubmit)="onSubmit()">
+
+<mat-dialog-content>
+  <p>
+    <mat-form-field>
+      <input matInput placeholder="Nom de l'établissement" type="text" [(ngModel)]="etablissement.nom" name="nom"  #nom="ngModel" required>
+    </mat-form-field>
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <span class="flex-spacer"></span>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="loginForm.form.invalid">Login</button>
+</mat-dialog-actions>
+</form>

@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  Justificat
+<span class="flex-spacer"></span>
+<button mat-button mat-dialog-close>&times;</button>
+</mat-toolbar>
+<mat-dialog-content class="mt-10">
+  <div class="card mt-15">
+    <div class="container" [style.overflow]="'auto'" [style.height.px]="'600'">
+      <div class="row">
+        <picture>
+          <source media='(min-width:0px)' srcset={{data.url}}>
+          <img mat-card-image src={{data.url}} alt="justificatif">
+        </picture>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>

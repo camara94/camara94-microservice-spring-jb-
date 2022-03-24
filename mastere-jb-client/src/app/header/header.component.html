@@ -1,0 +1,248 @@
+<!--
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+-->
+ <!------ Include the above in your HEAD tag ---------->
+
+<nav class="navbar navbar-icon-top navbar-expand-sm navbar-dark bg-dark" *ngIf="!authenticationService.securityService.keycloakInstance.authenticated">
+  <a class="navbar-brand" href="#">
+    <img src="assets/img/logo.png" alt="Logo" width="60">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home">
+          <i class="fa fa-home"></i>
+          Home
+          <span class="sr-only">(current)</span>
+          </a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-university"></i>
+          Mastère
+          <span class="sr-only">(current)</span>
+
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/ticit">TIC et Innovation Touristique ( <strong>TICIT</strong>  )</a>
+          <a class="dropdown-item" routerLink="demarche">Management Industriel des Equipements Hôteliers ( <strong>MIEH</strong> )</a>
+          <a class="dropdown-item" routerLink="/mgct">Gouvernance et Communication Territoriales ( <strong>MGCT</strong> )</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" (click)="authenticationService.onLogin()"  ><i class="fa fa-user fa-sm"> Login</i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="authenticationService.onRegister()"  ><i class="fa fa-user-plus fa-sm"> Register</i></a>
+      </li>
+      <li class="nav-item mr-10">
+        <a class="nav-link" href="#">
+        </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav "></ul>
+  </div>
+</nav>
+<!--Etudiant menu-->
+<nav class="navbar navbar-icon-top navbar-expand-sm navbar-dark bg-dark" *ngIf="!authenticationService.isMastereManager() && authenticationService.securityService.keycloakInstance.authenticated">
+  <a class="navbar-brand" href="#">
+    <img src="assets/img/logo.png" alt="Logo" width="60">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home">
+          <i class="fa fa-home"></i>
+          Home
+          <span class="sr-only">(current)</span>
+          </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-university"></i>
+          Mastère
+          <span class="sr-only">(current)</span>
+
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/ticit">TIC et Innovation Touristique ( <strong>TICIT</strong>  )</a>
+          <a class="dropdown-item" routerLink="demarche">Management Industriel des Equipements Hôteliers ( <strong>MIEH</strong> )</a>
+          <a class="dropdown-item" routerLink="/mgct">Gouvernance et Communication Territoriales ( <strong>MGCT</strong> )</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-folder fa-lg"></i>
+          CV
+          <span class="sr-only">(current)</span>
+
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/bac">Mon BAC</a>
+          <a class="dropdown-item"  routerLink="/diplome">Mes diplômes</a>
+          <a class="dropdown-item" routerLink="/formation">Mes Formations</a>
+          <a class="dropdown-item" routerLink="/distinction">Mes Distinctions</a>
+          <a class="dropdown-item" routerLink="/certification">Mes Certifcations</a>
+          <a class="dropdown-item" routerLink="/stage-experience">Mes stages et Expériences</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/suivi">
+          <i class="fa fa-check-circle fa-lg"></i>
+          Suivi
+          <span class="sr-only">(current)</span>
+          </a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav pr-20">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/suivi">
+          <i class="fa fa-bell">
+            <span class="badge badge-danger"> {{notifications.length}} </span>
+          </i>
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+          <span> {{ authenticationService.getTokenParsed().given_name }} </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/profile"> <i class="fa fa-user fa-sm"></i>Profile</a>
+          <a class="dropdown-item" routerLink="/update-etudiant"> <i class="fa fa-user-cog fa-sm"></i>Paramètres</a>
+          <a class="dropdown-item" (click)="authenticationService.onChangePassword()"> <i class="fa fa-unlock-alt fa-sm"></i> Changer Mot Passe</a>
+          <a class="dropdown-item" (click)="authenticationService.onLogout()"><i class="fa fa-sign-out-alt fa-sm"></i> LogOut </a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav "></ul>
+  </div>
+</nav>
+
+<!-- Admin menu-->
+<nav class="navbar navbar-icon-top navbar-expand-sm navbar-dark bg-dark" *ngIf="authenticationService.isMastereManager()">
+  <a class="navbar-brand" href="#">
+    <img src="assets/img/logo.png" alt="Logo" width="60">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home">
+          <i class="fa fa-home"></i>
+          Home
+          <span class="sr-only">(current)</span>
+          </a>
+      </li>
+
+      <li class="list-inline-item mr-0 p-md-3 p-2  border-white-0_1">
+        <div class="dropdown">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+            <img src="./../../assets/img/user.png" width="20" class="mg-fluid rounded-circle"/> &nbsp;
+            <span>Etablissement</span>
+          </button>
+          <div class="dropdown-menu">
+            <h5 class="dropdown-header">Gestion des établissements</h5>
+            <a routerLink="/add-etablissement" class="dropdown-item"><i class="fa fa-school"></i> Ajouter établissement</a>
+            <a routerLink="/list-etablissement" class="dropdown-item"><i class="fa fa-school"></i>Liste des établissements</a>
+          </div>
+        </div>
+       </li>
+       <li class="list-inline-item mr-0 p-md-3 p-2  border-white-0_1">
+        <div class="dropdown">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+            <img src="./../../assets/img/user.png" width="20" class="mg-fluid rounded-circle"/> &nbsp;
+            <span>Type</span>
+          </button>
+          <div class="dropdown-menu">
+            <h5 class="dropdown-header">Gestion Type</h5>
+            <a routerLink="/add-type" class="dropdown-item"><i class="fa fa-graduation-cap"></i> Ajouter Type</a>
+            <a routerLink="/list-type" class="dropdown-item"><i class="fa fa-school"></i>Liste des Types</a>
+          </div>
+        </div>
+      </li>
+      <li class="list-inline-item mr-0 p-md-3 p-2  border-white-0_1">
+        <div class="dropdown">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" >
+            <img src="./../../assets/img/user.png" width="20" class="mg-fluid rounded-circle"/> &nbsp;
+            <span>Domaine</span>
+          </button>
+          <div class="dropdown-menu">
+            <h5 class="dropdown-header">Gestion domaine</h5>
+            <a routerLink="/add-domaine" class="dropdown-item"><i class="fa fa-graduation-cap"></i> Ajouter domaine</a>
+            <a routerLink="/list-domaine" class="dropdown-item"><i class="fa fa-school"></i>Liste des domaines</a>
+          </div>
+        </div>
+       </li>
+      <li class="list-inline-item mr-0 p-md-3 p-2  border-white-0_1">
+        <div class="dropdown">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+            <img src="./../../assets/img/user.png" width="20" class="mg-fluid rounded-circle"/> &nbsp;
+            <span>Mention</span>
+          </button>
+          <div class="dropdown-menu">
+            <h5 class="dropdown-header">Gestion Mention</h5>
+            <a routerLink="/add-mention" class="dropdown-item"><i class="fa fa-graduation-cap"></i> Ajouter mention</a>
+            <a routerLink="/list-mention" class="dropdown-item"><i class="fa fa-school"></i>Liste des Mentions</a>
+          </div>
+        </div>
+       </li>
+       <li class="list-inline-item mr-0 p-md-3 p-2  border-white-0_1">
+        <div class="dropdown">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+            <img src="./../../assets/img/user.png" width="20" class="mg-fluid rounded-circle"/> &nbsp;
+            <span>Mastère</span>
+          </button>
+          <div class="dropdown-menu">
+            <h5 class="dropdown-header">Gestion Mastère</h5>
+            <a routerLink="/filtre" class="dropdown-item"><i class="fa fa-school"></i>Filtre</a>
+            <a routerLink="/formule" class="dropdown-item" ><i class="fa fa-tasks"></i>Formule de Calcule</a>
+            <a routerLink="/add-mastere" class="dropdown-item"><i class="fa fa-graduation-cap"></i> Ajouter mastere</a>
+            <a routerLink="/list-mastere" class="dropdown-item"><i class="fa fa-school"></i>Liste des mastères</a>
+          </div>
+        </div>
+       </li>
+
+
+
+       <li class="list-inline-item mr-0 p-md-3 p-2  border-white-0_1">
+        <div class="dropdown">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" >
+            <img src="./../../assets/img/user.png" width="20" class="mg-fluid rounded-circle"/> &nbsp;
+            <span>Admin</span>
+          </button>
+          <div class="dropdown-menu">
+            <h5 class="dropdown-header">Statistiques</h5>
+            <a routerLink="/filtre" class="dropdown-item"><i class="fa fa-school"></i>Filtre</a>
+            <a routerLink="/appel-a-la-candidature" class="dropdown-item" >
+              <i class="fa fa-tasks"></i>
+              Appel à la candidtature</a>
+            <a routerLink="/appel" class="dropdown-item" >
+              <i class="far fa-list-alt"></i>
+                liste candidtature</a>
+            <h5 class="dropdown-header">Autre</h5>
+            <a class="dropdown-item" (click)="authenticationService.onLogout()"><i class="fa fa-sign-out-alt fa-sm"></i> LogOut </a>
+          </div>
+        </div>
+       </li>
+    </ul>
+    <ul class="navbar-nav "></ul>
+  </div>
+</nav>
+

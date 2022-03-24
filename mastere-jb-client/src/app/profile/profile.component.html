@@ -1,0 +1,728 @@
+<div class="site-search">
+  <div class="site-search__close bg-black-0_8"></div>
+  <form class="form-site-search" action="#" method="POST">
+   <div class="input-group">
+     <input type="text" placeholder="Search" class="form-control py-3 border-white" required="">
+     <div class="input-group-append">
+       <button class="btn btn-primary" type="submit"><i class="ti-search"></i></button>
+     </div>
+   </div>
+  </form>
+ </div> <!-- END site-search-->
+
+
+<!--
+<div class="padding-y-1 bg-cover" data-dark-overlay="6" style="background:url(assets/img/breadcrumb-bg.jpg) no-repeat">
+ <div class="container">
+   <h2 class="text-white">
+     Profile Etudiant
+   </h2>
+   <ol class="breadcrumb breadcrumb-double-angle text-white bg-transparent p-0">
+     <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+     <li class="breadcrumb-item"><a routerLink="/profile">Profile</a></li>
+     <li class="breadcrumb-item"> {{ etudiant.prenom }} </li>
+   </ol>
+ </div>
+</div>
+-->
+<div class="container padding-y-20" *ngIf="etudiant==null">
+  <div class="row">
+    <div class="mx-auto">
+      <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+    </div>
+  </div>
+</div>
+
+
+ <section class="paddingTop-5 paddingBottom-100 bg-light" *ngIf="etudiant != null">
+   <div class="container">
+     <div class="row">
+       <div class="col-lg-4 mt-4">
+         <div class="card shadow-v1">
+           <div class="card-header text-center border-bottom pt-5 mb-4">
+            <img class="rounded-circle mb-4" src="assets/img/user.png" width="200" height="200" alt="">
+            <h4>
+              {{ etudiant.firstname }} {{ etudiant.lastname }}
+            </h4>
+             <p>
+               Les scores
+             </p>
+             <ul class="list-inline mb-0">
+               <li class="list-inline-item m-2">
+                 <i class="ti-folder text-primary"></i>
+                 <span class="d-block">de vos dossiers</span>
+                 <span class="h6" *ngIf="etudiant.validerDossier === true" >{{ score }}</span>
+                 <span class="h6" *ngIf="etudiant.validerDossier === false" >0</span>
+               </li>
+               <li class="list-inline-item m-2">
+                 <i class="ti-file text-primary"></i>
+                 <span class="d-block">de l'oral</span>
+                 <span class="h6">{{ etudiant.scoreOral }}</span>
+               </li>
+             </ul>
+           </div>
+           <div class="card-body border-bottom">
+             <ul class="list-unstyled">
+               <li class="mb-3">
+                 <span class="d-block">Email address:</span>
+                 <a class="h6" href="mailto:isetjb@gmail.com"> {{ etudiant.email }} </a>
+               </li>
+               <li class="mb-3">
+                 <span class="d-block">Phone:</span>
+                 <a class="h6" href="mailto:isetjb@gmail.com"> {{ etudiant.telephone }} </a>
+               </li>
+               <li class="mb-3">
+                 <span class="d-block">CIN:</span>
+                 <a class="h6" href="mailto:isetjb@gmail.com">{{ etudiant.cin }}</a>
+               </li>
+             </ul>
+           </div>
+           <div class="card-footer">
+            <p>
+              Réseaux Sociaux:
+            </p>
+             <ul class="list-inline mb-0">
+               <li class="list-inline-item">
+                 <a href="#" class="btn btn-outline-facebook iconbox iconbox-sm">
+                   <i class="ti-facebook"></i>
+                 </a>
+               </li>
+               <li class="list-inline-item">
+                 <a href="#" class="btn btn-outline-twitter iconbox iconbox-sm">
+                   <i class="ti-twitter"></i>
+                 </a>
+               </li>
+               <li class="list-inline-item">
+                 <a href="#" class="btn btn-outline-google-plus iconbox iconbox-sm">
+                   <i class="ti-google"></i>
+                 </a>
+               </li>
+               <li class="list-inline-item">
+                 <a href="#" class="btn btn-outline-linkedin iconbox iconbox-sm">
+                   <i class="ti-linkedin"></i>
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </div>
+       </div> <!-- END col-md-4 -->
+
+
+       <div class="col-lg-8 mt-4">
+         <div class="card padding-30 shadow-v1">
+           <ul class="nav tab-line tab-line border-bottom mb-4" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#Tabs_1-1" role="tab" aria-selected="true">
+               <i class="ti-file mr-1"></i>
+                BAC
+              </a>
+             </li>
+            <li class="nav-item">
+             <a class="nav-link" data-toggle="tab" href="#Tabs_1-2" role="tab" aria-selected="true">
+              <i class="ti-medall mr-1"></i>
+               Mes Diplômes
+             </a>
+            </li>
+            <li class="nav-item">
+             <a class="nav-link" data-toggle="tab" href="#Tabs_1-3" role="tab" aria-selected="true">
+              <i class="ti-id-badge mr-1"></i>
+               Mes Formations
+             </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#Tabs_1-4" role="tab" aria-selected="true">
+               <i class="ti-file mr-1"></i>
+                Distinction
+              </a>
+             </li>
+          </ul>
+
+           <div class="tab-content">
+
+            <div class="tab-pane fade show active" id="Tabs_1-1" role="tabpanel">
+              <div class="table-responsive my-4">
+                <table class="table table-bordered" *ngIf="etudiant.bac!= null">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ecole d'origine</th>
+                      <th scope="col">Moyenne</th>
+                      <th scope="col">Année</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="etudiant.bac != null">
+                    <tr>
+                      <th scope="row" class="text-dark font-weight-semiBold"> {{ etudiant.bac.ecole }} </th>
+                      <td> {{ etudiant.bac.moyenne }} </td>
+                      <td> {{ etudiant.bac.annee }} </td>
+                      <td> <button class="btn btn-warning btn-sm" (click)="openDialog(etudiant.bac.file)"  > <i class="fa fa-eye fa-sm"></i> </button> &nbsp;
+                          <button class="btn btn-primary btn-sm" (click)="openDialogProfile(etudiant.bac, 1)"  > <i class="ti-arrow-circle-down"></i> </button>
+                          <!--button (click)="getBacModal(etudiant.bac.id)"   type="button" data-toggle="modal" data-target="#detailBacModal" class="btn btn-primary btn-sm"> <i class="ti-arrow-circle-down"></i></button-->&nbsp;
+                          <button class="btn btn-info btn-sm" ><i class="ti-pencil" [routerLink]="['/update-bac', etudiant.bac.id]" ></i></button>&nbsp;
+                          <button (click)="getBacModal(etudiant.bac.id)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#supprimerBacModal"> <i class="ti-cut"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-center" *ngIf="etudiant.bac == null">
+                  <button [routerLink]="['/add-bac', etudiant.id]" class="btn btn-primary btn-sm"><i class="ti-medall mr-1"></i> Ajouter le BAC</button>
+                </div>
+              </div>
+              </div> <!-- END tab-pane -->
+
+
+             <div class="tab-pane fade" id="Tabs_1-2" role="tabpanel">
+             <div class="table-responsive my-4">
+               <table class="table table-bordered">
+                 <thead>
+                   <tr>
+                     <th scope="col">Titre</th>
+                     <th scope="col">Année</th>
+                     <th scope="col">Action</th>
+                   </tr>
+                 </thead>
+                 <tbody >
+                   <tr *ngFor="let diplome of etudiant.diplomes" >
+                     <th scope="row" class="text-dark font-weight-semiBold"> {{ diplome.titre }} </th>
+                     <td> {{ diplome.annee }} </td>
+                     <td> <button class="btn btn-warning btn-sm" (click)="openDialog(diplome.file)"  > <i class="fa fa-eye fa-sm"></i> </button> &nbsp;
+                         <button (click)="openDialogProfile(diplome, 2)"  type="button" class="btn btn-primary btn-sm"> <i class="ti-arrow-circle-down"></i></button>&nbsp;
+                         <button class="btn btn-info btn-sm" [routerLink]="['/update-diplome', diplome.id]"><i class="ti-pencil"></i></button>&nbsp;
+                         <button (click)="getDiplomeModal(diplome.id)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#supprimerDiplomeModal"> <i class="ti-cut"></i></button>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
+               <div class="text-center">
+                <button routerLink="/dossier" class="btn btn-primary btn-sm"><i class="ti-medall mr-1"></i> Ajouter un Diplôme</button>
+              </div>
+             </div>
+             </div> <!-- END tab-pane -->
+
+
+             <div class="tab-pane fade" id="Tabs_1-3" role="tabpanel">
+                <div class="table-responsive my-4">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">Titre</th>
+                          <th scope="col">Durée</th>
+                          <th scope="col">Date de debut</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let formation of etudiant.formations" >
+                          <th scope="row" class="text-dark font-weight-semiBold"> {{ formation.titre }} </th>
+                          <td> {{ formation.duree}} {{ formation.typeDuree }} </td>
+                          <td> {{ formation.dateDebut | date }} </td>
+                          <td> <button class="btn btn-warning btn-sm" (click)="openDialog(formation.file)"  > <i class="fa fa-eye fa-sm"></i> </button>&nbsp;
+                            <button (click)="openDialogProfile(formation, 3)"  type="button" class="btn btn-primary btn-sm"> <i class="ti-arrow-circle-down"></i></button>&nbsp;
+                            <button class="btn btn-info btn-sm" [routerLink]="['/update-formation', formation.id]"><i class="ti-pencil"></i></button>&nbsp;
+                            <button (click)="getFormationModal(formation.id)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#supprimerFormationModal"> <i class="ti-cut"></i></button>
+                        </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="text-center">
+                      <button routerLink="/add-formation" class="btn btn-primary btn-sm"><i class="ti-id-badge mr-1"></i> Ajouter une Formation</button>
+                    </div>
+                  </div>
+                </div> <!-- END tab-pane -->
+
+
+
+
+                <div class="tab-pane fade" id="Tabs_1-4" role="tabpanel">
+                  <div class="table-responsive my-4">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th scope="col">Context</th>
+                            <th scope="col">Organisateur</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let distinction of etudiant.distinctions" >
+                            <th scope="row" class="text-dark font-weight-semiBold"> {{ distinction.context }} </th>
+                            <td> {{ distinction.organisation }} </td>
+                            <td> {{ distinction.date | date }}  </td>
+                            <td>
+                              <button class="btn btn-warning btn-sm" (click)="openDialog(distinction.file)"  > <i class="fa fa-eye fa-sm"></i> </button>
+                             &nbsp;
+                             <button (click)="getDistinctionModal(distinction.id)"  type="button" data-toggle="modal" data-target="#distinction" class="btn btn-primary btn-sm"> <i class="ti-arrow-circle-down"></i></button>&nbsp;
+                             &nbsp;
+                              <button class="btn btn-info btn-sm" [routerLink]="['/update-distinction', distinction.id]"><i class="ti-pencil"></i></button>&nbsp;
+                              <button (click)="getDistinctionModal(distinction.id)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#supprimerDistinctionModal"> <i class="ti-cut"></i></button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class="text-center">
+                        <button class="btn btn-primary btn-sm" routerLink="/add-distinction"><i class="ti-file btn-sm"></i> Ajouter une Distinction</button>
+                      </div>
+                    </div>
+                  </div> <!-- END tab-pane -->
+
+
+
+             <div class="tab-pane fade" id="Tabs_1-3" role="tabpanel">
+                <div class="table-responsive my-4">
+                  <h4 class="text-center">Mes Rélévés de Notes</h4>
+                  <div *ngFor="let diplome of etudiant.diplomes">
+                    <h5 class="text-center">{{ diplome.titre }}</h5>
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">Titre</th>
+                          <th scope="col">Moyenne</th>
+                          <th scope="col">Année</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let anneeUniversitaire of diplome.anneeUniversitaires " >
+                          <th scope="row" class="text-dark font-weight-semiBold"> {{ anneeUniversitaire.titre }} </th>
+                          <td> {{ anneeUniversitaire.moyenne }} </td>
+                          <td> {{ anneeUniversitaire.annee }}  </td>
+                          <td> <button class="btn btn-warning btn-sm" (click)="openDialog(anneeUniversitaire.file)"  > <i class="fa fa-eye fa-sm"></i> </button>&nbsp;
+                            <a href="#" class="btn btn-link">
+                              <button class="btn btn-info"><i class="ti-pencil"></i>Modifier</button>
+                            </a>
+                              <a href="#" class="btn btn-link">
+                              <button class="btn btn-danger"><i class="ti-cut"></i>supprimer</button>
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn btn-primary" routerLink="/add-releve"><i class="ti-file"></i> Ajouter un Rélévé</button>
+                  </div>
+                </div>
+              </div> <!-- END tab-pane -->
+
+
+
+           </div> <!-- END tab-content-->
+
+
+
+
+
+
+
+            <ul class="nav tab-line tab-line border-bottom mb-5" role="tablist">
+             <li class="nav-item">
+               <a class="nav-link active" data-toggle="tab" href="#Tabs_1-5" role="tab" aria-selected="true">
+                <i class="ti-file mr-1"></i>
+                 Certificat
+               </a>
+              </li>
+             <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#Tabs_1-6" role="tab" aria-selected="true">
+               <i class="ti-medall mr-1"></i>
+                Stage ou Expérience Professionnelle
+              </a>
+             </li>
+           </ul>
+           <div class="tab-content">
+
+            <div class="tab-pane fade show active" id="Tabs_1-5" role="tabpanel">
+              <div class="table-responsive my-4">
+                <table class="table table-bordered" *ngIf="etudiant.certificats!= null">
+                  <thead>
+                    <tr>
+                      <th scope="col">Intitulé</th>
+                      <th scope="col">Organisme</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="etudiant.certificats != null">
+                    <tr *ngFor="let certificat of etudiant.certificats" >
+                      <th scope="row" class="text-dark font-weight-semiBold"> {{ certificat.intitule }} </th>
+                      <td> {{ certificat.organisme }} </td>
+                      <td> {{ certificat.date | date }} </td>
+                      <td> <button class="btn btn-warning btn-sm" (click)="openDialog(certificat.file)"  > <i class="fa fa-eye fa-sm"></i> </button>
+                          &nbsp;<button (click)="getCertificatModal(certificat.id)" type="button" data-toggle="modal" data-target="#certificatAff" class="btn btn-primary btn-sm"> <i class="ti-arrow-circle-down"></i></button>&nbsp;
+                          <button class="btn btn-info btn-sm" ><i class="ti-pencil" [routerLink]="['/update-certificat', certificat.id]" ></i></button>&nbsp;
+                          <button (click)="getCertificatModal(certificat.id)"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteCertificat"> <i class="ti-cut"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <button  class="btn btn-primary btn-sm" routerLink="/add-certificat" ><i class="ti-medall mr-1"></i> Ajouter Certificat</button>
+                </div>
+              </div>
+            </div> <!-- END tab-pane -->
+
+            <div class="tab-pane fade show" id="Tabs_1-6" role="tabpanel">
+              <div class="table-responsive my-4">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Titre</th>
+                      <th scope="col">Organisme</th>
+                      <th scope="col">Nature</th>
+                      <th scope="col">Durée</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let stage of etudiant.stageExperiences" >
+                      <th scope="row" class="text-dark font-weight-semiBold"> {{ stage.titre }} </th>
+                      <td> {{ stage.organisme }} </td>
+                      <td> {{ stage.nature }} </td>
+                      <td> {{ stage.duree }} </td>
+                      <td> <button class="btn btn-warning btn-sm" (click)="openDialog(stage.file)"  > <i class="fa fa-eye fa-sm"></i> </button>
+                          &nbsp;<button  (click)="getStageExperienceModal(stage.id)" type="button" data-toggle="modal" data-target="#stageAff" class="btn btn-primary btn-sm"> <i class="ti-arrow-circle-down"></i></button>&nbsp;
+                          <button class="btn btn-info btn-sm" ><i class="ti-pencil" [routerLink]="['/update-stage-experience', stage.id]" ></i></button>&nbsp;
+                          <button (click)="getStageExperienceModal(stage.id)"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteStage"> <i class="ti-cut"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <button routerLink="/add-stage-experience" class="btn btn-primary btn-sm"><i class="ti-medall mr-1"></i> Ajouter un stage</button>
+                </div>
+              </div>
+              </div> <!-- END tab-pane -->
+
+
+           </div> <!-- END tab-content-->
+
+
+         </div> <!-- END card-->
+       </div> <!-- END col-md-8 -->
+     </div> <!--END row-->
+   </div> <!--END container-->
+ </section>
+
+
+
+
+
+
+
+
+<!-- BAC Modal ici-->
+<!-- Diplome Modal -->
+<!-- Formation Modal -->
+
+
+<!-- Distinction -->
+
+<!-- Modal detail de distinction-->
+<div *ngIf="distinctionModal" class="modal fade" id="distinction" tabindex="-1" role="dialog" aria-labelledby="exdistinctionModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="exampleModalLabel">{{ distinctionModal.context }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+            <div class="modal-body">
+              <table class="table table-striped table-bordered">
+                <tr>
+                  <th>Context</th>
+                  <th>Description</th>
+                  <th>Organisation</th>
+                  <th>Date</th>
+                </tr>
+                <tr>
+                  <td> {{ distinctionModal.context }} </td>
+                  <td> {{ distinctionModal.description }} </td>
+                  <td> {{ distinctionModal.organisation}} </td>
+                  <td> {{ distinctionModal.date | date }} </td>
+                </tr>
+              </table>
+            </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary btn-sm ml-0"  data-dismiss="modal" [routerLink]="['/update-distinction', distinctionModal.id]"><i class="ti-file"></i> Mettre à jour le BAC</button>
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fermer</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- Modal detail de Certificat-->
+<div *ngIf="certificatModal" class="modal fade" id="certificatAff" tabindex="-1" role="dialog" aria-labelledby="exdistinctionModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="exampleModalLabel">{{ certificatModal.intitule }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+            <div class="modal-body">
+              <table class="table table-striped table-bordered">
+                <tr>
+                  <th>Intitulé</th>
+                  <th>Organisme</th>
+                  <th>Date</th>
+                </tr>
+                <tr>
+                  <td> {{ certificatModal.intitule }} </td>
+                  <td> {{ certificatModal.organisme }} </td>
+                  <td> {{ certificatModal.date | date }} </td>
+                </tr>
+              </table>
+            </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary btn-sm ml-0"  data-dismiss="modal" [routerLink]="['/update-certificat', certificatModal.id]"><i class="ti-file"></i> Mettre à jour le BAC</button>
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fermer</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal detail de Stage ou Experience-->
+<div *ngIf="stageExperienceModal" class="modal fade" id="stageAff" tabindex="-1" role="dialog" aria-labelledby="exdistinctionModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="exampleModalLabel">{{ stageExperienceModal.titre }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+            <div class="modal-body">
+              <table class="table table-striped table-bordered">
+                <tr>
+                  <th>Titre</th>
+                  <th>Organisme</th>
+                  <th>Nature</th>
+                  <th>Durée</th>
+                  <th>Rémarque</th>
+                </tr>
+                <tr>
+                  <td> {{ stageExperienceModal.titre }} </td>
+                  <td> {{ stageExperienceModal.organisme }} </td>
+                  <td> {{ stageExperienceModal.nature }} </td>
+                  <td> {{ stageExperienceModal.duree }} </td>
+                  <td> {{ stageExperienceModal.remarque }} </td>
+                </tr>
+              </table>
+            </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary btn-sm ml-0"  data-dismiss="modal" [routerLink]="['/update-stage-experience', stageExperienceModal.id]"><i class="ti-file"></i> Mettre à jour le BAC</button>
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fermer</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal  de suppression d'un diplôme-->
+<div *ngIf="modalDiplome" class="modal fade m-0" id="supprimerDiplomeModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-0">
+      <div class="modal-body m-0">
+          <div class="alert alert-danger m-1" role="alert">
+                 Etes-vous sûr de bien vouloir supprimer <br>
+                le diplôme <strong>{{ modalDiplome.titre }}</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-success btn-sm" data-dismiss="modal" (click)="deleteDiplome(modalDiplome.id, etudiant.id)">OK</button>&nbsp;
+          <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal  de suppression d'un rélévé de note-->
+<div *ngIf="releveModal" class="modal fade m-0" id="supprimerReleveModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-0">
+      <div class="modal-body m-0">
+          <div *ngIf="releverMessage==null" class="alert alert-danger m-1" role="alert">
+                 Etes-vous sûr de bien vouloir supprimer <br>
+                la note de classe <strong>{{ releveModal.titre }} -- {{releveModal.annee}}</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div *ngIf="releverMessage!=null" class="alert alert-warning m-1" role="alert">
+          {{releverMessage}}
+        </div>
+
+        <div class="container padding-y-20" *ngIf="scrool">
+          <div class="row">
+            <div class="mx-auto">
+              <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-success btn-sm" (click)="deleteReleve(releveModal.id, modalDiplome.id)">OK</button>&nbsp;
+          <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal  de suppression d'une formation-->
+<div class="modal fade m-0" id="supprimerFormationModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" *ngIf="formationModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-0">
+      <div class="modal-body m-0">
+          <div class="alert alert-danger m-1" role="alert" *ngIf="!scrool" >
+                 Etes-vous sûr de bien vouloir supprimer <br>
+                la formation <strong>{{ formationModal.titre }}</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container padding-y-20" *ngIf="scrool">
+          <div class="row">
+            <div class="mx-auto">
+              <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-success btn-sm" data-dismiss="modal" (click)="deleteFormation(formationModal.id, etudiant.id)">OK</button>&nbsp;
+          <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal  de suppression d'une bac-->
+<div class="modal fade m-0" id="supprimerBacModal"  role="dialog" aria-labelledby="supprimerBacModal" *ngIf="bacModal != null" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-0">
+      <div class="modal-body m-0">
+          <div class="alert alert-danger m-1" role="alert" >
+                 Etes-vous sûr de bien vouloir supprimer <br>
+                le BAC <strong>{{ bacModal.option }}</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container padding-y-20" *ngIf="scrool">
+          <div class="row">
+            <div class="mx-auto">
+              <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button data-dismiss="modal" (click)="deleteBac(bacModal.id, etudiant.id)" class="btn btn-success btn-sm">OK</button>&nbsp;
+          <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal  de suppression d'un Certificat-->
+<div class="modal fade m-0" id="deleteCertificat"  role="dialog" aria-labelledby="deleteCertificat" *ngIf="certificatModal != null" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-0">
+      <div class="modal-body m-0">
+          <div class="alert alert-danger m-1" role="alert" >
+                 Etes-vous sûr de bien vouloir supprimer <br>
+                le Certificat <strong>{{ certificatModal.intitule }}</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container padding-y-20" *ngIf="scrool">
+          <div class="row">
+            <div class="mx-auto">
+              <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button data-dismiss="modal" (click)="deleteCertificat(certificatModal.id, etudiant.id)" class="btn btn-success btn-sm">OK</button>&nbsp;
+          <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal  de suppression d'un Certificat-->
+<div class="modal fade m-0" id="deleteStage"  role="dialog" aria-labelledby="deleteStage" *ngIf="stageExperienceModal != null" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-0">
+      <div class="modal-body m-0">
+          <div class="alert alert-danger m-1" role="alert" >
+                 Etes-vous sûr de bien vouloir supprimer <br>
+                le {{ stageExperienceModal.nature }} <strong>{{ stageExperienceModal.titre }}</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container padding-y-20" *ngIf="scrool">
+          <div class="row">
+            <div class="mx-auto">
+              <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button data-dismiss="modal" (click)="deleteStageExperience(stageExperienceModal.id, etudiant.id)" class="btn btn-success btn-sm">OK</button>&nbsp;
+          <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal  de suppression d'une Distinction -->
+<div class="modal fade m-0" id="supprimerDistinctionModal"  role="dialog" aria-labelledby="supprimerDistinctionModal" *ngIf="distinctionModal != null" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-0">
+      <div class="modal-body m-0">
+          <div class="alert alert-danger m-1" role="alert" >
+                 Etes-vous sûr de bien vouloir supprimer <br>
+                la distinction <strong>{{ distinctionModal.context }}</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container padding-y-20" *ngIf="scrool">
+          <div class="row">
+            <div class="mx-auto">
+              <mat-spinner mode="indeterminate">...</mat-spinner><h5>En chargement . . . Veuillez patienter, s'il vous plaît</h5>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button data-dismiss="modal" (click)="deleteDistinction(etudiant.id, distinctionModal.id)" class="btn btn-success btn-sm">OK</button>&nbsp;
+          <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

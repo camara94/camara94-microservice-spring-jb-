@@ -1,0 +1,30 @@
+.error{
+  color: red;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.pad{
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+#centre {
+  margin: 0px auto;
+}
+
+.taille{
+  height: 100px;
+}
+
+.minRow input {
+  border: 0px solid;
+  border-bottom-width: 1px;
+  border-bottom-color: gainsboro;
+  width: 100%;
+}
+
+
+
+
+
